@@ -22,7 +22,7 @@
 |---------------|----------------|
 | **React 19 & Next.js 15** | Frontend & Server-Side Rendering |
 | **Tailwind CSS & Shadcn UI** | Modern UI & Styling |
-| **NeonDB & Prisma** | Database & ORM |
+| **NeonDB & Prisma** | Database &  |
 | **Clerk Authentication** | Secure login & access control |
 | **Inngest** | Background job processing |
 | **Gemini API** | AI-powered career guidance |
