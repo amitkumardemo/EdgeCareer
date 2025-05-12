@@ -53,5 +53,4 @@ GEMINI_API_KEY=
 
 ---
 
-## 📂 Project Structure  
-edgecareer │── app │ ├── dashboard # User Dashboard │ ├── auth # Authentication (Clerk) │ ├── api # API Routes (Next.js) │── components # Reusable UI Components │── lib # Utility functions & helpers │── prisma # Prisma schema & database setup │── public # Static assets │── styles # Tailwind configurations │── package.json # Project dependencies & scripts │
+
