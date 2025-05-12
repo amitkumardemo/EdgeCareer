@@ -3,7 +3,7 @@
 > **Full Stack AI Career Coach built with React 19 + Next.js 15, Tailwind CSS, NeonDB, Prisma, Clerk Authentication, Inngest, Gemini API, and Shadcn UI.**  
 > A **cutting-edge AI-driven career platform** that provides **personalized job recommendations, AI resume reviews, and real-time career insights** to help users land their dream job.  
 
-![EdgeCareer Banner](https://your-image-link.com) <!-- Add a project banner if available -->
+
 
 ## 🌟 Key Features  
 
@@ -45,12 +45,6 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/onboarding
 GEMINI_API_KEY=
 ```
 
-## 📸 Screenshots  
 
-<!-- Add project screenshots here -->
-![Dashboard](https://your-image-link.com)  
-![AI Resume Analysis](https://your-image-link.com)  
-
----
 
 
