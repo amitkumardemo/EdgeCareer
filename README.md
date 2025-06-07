@@ -109,10 +109,3 @@ Browse the issues labeled Beginner, Intermediate, or Advanced
 Pick one and start solving!
 
 Make changes, commit, and raise a pull request with a clear message.
-
-
----
-
-Would you like me to add a **"Contributing Guidelines"** section next with example PR instructions or do you also want a separate `CONTRIBUTING.md` file for your repo?
-
-
