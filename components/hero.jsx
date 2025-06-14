@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { BUTTONS_MENUS } from "@/lib/constants";
 import Link from "next/link";
+import SplitType from "split-type";
+import { scale } from "framer-motion";
 
 const HeroSection = () => {
   const imageRef = useRef(null);
@@ -27,16 +29,34 @@ const HeroSection = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(()=>{
+    const text= new SplitType(".gradient-title")
+    let t1=gsap.timeline()
+    t1.from(".char",{ 
+      y: 50,
+      opacity: 0,
+      duration: 0.5,
+      stagger: 0.05,
+      ease: "power2.out",
+    })
+    t1.from("#hero-description", {
+      scale:0,
+      opacity: 0,
+      duration: 0.5,    
+      ease: "power2.out",
+    })
+  },[])
+
   return (
     <section className="w-full pt-36 md:pt-48 pb-10">
       <div className="space-y-6 text-center">
         <div className="space-y-6 mx-auto">
-          <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl xl:text-6xl gradient-title animate-gradient">
+          <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl xl:text-6xl gradient-title " >
             Welcome to EdgeCareer
             <br />
             Your AI-Powered Career Assistant
           </h1>
-          <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl">
+          <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl" id="hero-description">
             AI-powered career assistant for smarter job search, resume optimization, mock interviews, and industry insights.
           </p>
         </div>

@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useEffect, useLayoutEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -18,7 +19,88 @@ import { faqs } from "@/data/faqs";
 import { howItWorks } from "@/data/howItWorks";
 import { ArrowRight } from 'lucide-react';
 
+
 export default function LandingPage() {
+  useLayoutEffect(() => {
+
+
+  gsap.from("#features-title", {
+    scale: 0.8,
+    opacity: 0,
+    duration: 0.7,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: "#features-title",
+      start: "top 80%",
+    },
+  });
+
+  gsap.from(".feature-card", {
+    y: 60,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.2,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".feature-card",
+      start: "top 85%",
+    },
+  });
+
+    // Stats number animation
+    const statEls = document.querySelectorAll('.stat-number');
+    statEls.forEach((el) => {
+      const target = parseInt(el.getAttribute('data-target'));
+      let suffix = el.textContent.replace(/\d+/g, '');
+      gsap.fromTo(el, {
+        innerText: 0
+      }, {
+        innerText: target,
+        duration: 1.5,
+        ease: 'power1.out',
+        snap: { innerText: 1 },
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 90%'
+        },
+        onUpdate: function () {
+          if (suffix === '+') {
+            el.textContent = Math.floor(el.innerText) + '+';
+          } else if (suffix === '%') {
+            el.textContent = Math.floor(el.innerText) + '%';
+          } else if (suffix === '/7') {
+            el.textContent = Math.floor(el.innerText) + '/7';
+          }
+        }
+      });
+    });
+
+    gsap.from("#how-section", {
+      scale: 0.8,
+      opacity: 0,
+      duration: 0.7,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: "#how-section",
+        start: "top 80%",
+      },
+    });
+    gsap.from(".how-card", {
+      y: 60,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.2,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".how-card",
+      start: "top 85%",
+    },
+    });
+  return () => {
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  };
+}, []);
+
   return (
     <>
       <Head>
@@ -83,14 +165,16 @@ export default function LandingPage() {
 
       <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-background" aria-label="Platform Features">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-3xl font-bold tracking-tighter text-center mb-12">
-            AI Features to Accelerate Your Career
+
+          <h2 className="text-3xl font-bold tracking-tighter text-center mb-12" id="features-title">
+            Powerful Features for Your Career Growth
+         
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {features.map((feature, index) => (
               <Card
                 key={index}
-                className="border-2 hover:border-primary transition-colors duration-300"
+                className="feature-card border-2 hover:border-primary transition-colors duration-300"
               >
                 <CardContent className="pt-6 text-center flex flex-col items-center">
                   <div className="flex flex-col items-center justify-center">
@@ -109,19 +193,19 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center">
             <div className="flex flex-col items-center justify-center space-y-2">
-              <h3 className="text-4xl font-bold">50+</h3>
+              <h3 className="text-4xl font-bold stat-number" data-target="50">0+</h3>
               <p className="text-muted-foreground">Industries Covered</p>
             </div>
             <div className="flex flex-col items-center justify-center space-y-2">
-              <h3 className="text-4xl font-bold">1000+</h3>
+              <h3 className="text-4xl font-bold stat-number" data-target="1000">0+</h3>
               <p className="text-muted-foreground">Interview Questions</p>
             </div>
             <div className="flex flex-col items-center justify-center space-y-2">
-              <h3 className="text-4xl font-bold">95%</h3>
+              <h3 className="text-4xl font-bold stat-number" data-target="95">0%</h3>
               <p className="text-muted-foreground">Success Rate</p>
             </div>
             <div className="flex flex-col items-center justify-center space-y-2">
-              <h3 className="text-4xl font-bold">24/7</h3>
+              <h3 className="text-4xl font-bold stat-number" data-target="24">0/7</h3>
               <p className="text-muted-foreground">AI Support</p>
             </div>
           </div>
@@ -130,7 +214,7 @@ export default function LandingPage() {
 
       <section id="how-it-works" className="w-full py-12 md:py-24 bg-background" aria-label="How EdgeCareer Works">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="text-center max-w-3xl mx-auto mb-12" id="how-section">
             <h2 className="text-3xl font-bold mb-4">How It Works</h2>
             <p className="text-muted-foreground">
               Four simple steps to accelerate your career growth
@@ -140,7 +224,7 @@ export default function LandingPage() {
             {howItWorks.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center text-center space-y-4"
+                className="flex flex-col items-center text-center space-y-4 how-card"
               >
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
                   {item.icon}
