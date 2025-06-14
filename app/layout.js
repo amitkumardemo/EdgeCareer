@@ -5,6 +5,8 @@ import { Toaster } from "sonner";
 import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { dark } from "@clerk/themes";
+import Footer from "@/components/Footer";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +24,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider appearance={{ baseTheme: dark }}>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning className="dark">
         <head>
          
           {/* SEO Meta Tags */}
@@ -47,7 +49,7 @@ export default function RootLayout({ children }) {
           <meta name="twitter:description" content={metadata.description} />
           <meta name="twitter:image" content="https://edgecareer.com/og-image.png" />
         </head>
-        <body className={`${inter.className}`}>
+        <body className={`${inter.className}`} >
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -58,9 +60,9 @@ export default function RootLayout({ children }) {
             <main className="min-h-screen">{children}</main>
             <Toaster richColors />
 
-            <footer className="bg-muted/50 py-12">
+            <footer className="bg-muted/50 py-10">
               <div className="container mx-auto px-4 text-center text-gray-200">
-                <p>Made with 💗 by EdgeCareer</p>
+            <Footer/>
               </div>
             </footer>
           </ThemeProvider>
