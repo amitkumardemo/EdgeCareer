@@ -56,12 +56,36 @@ const HeroSection = () => {
             <br />
             Your AI-Powered Career Assistant
           </h1>
+
+          <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl">
+
+            AI-powered career assistant for smarter job search, resume
+            optimization, mock interviews, and industry insights.
+
+
           <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl" id="hero-description">
+
             AI-powered career assistant for smarter job search, resume optimization, mock interviews, and industry insights.
           </p>
         </div>
         <div className="flex justify-center space-x-4">
           <Link href="/dashboard">
+
+            <Button
+              size="lg"
+              className="px-8 transition-transform duration-200 ease-in-out transform hover:scale-105 hover:bg-primary/90"
+            >
+              Get Started
+            </Button>
+          </Link>
+          <Link href="/interview">
+            <Button
+              size="lg"
+              variant="outline"
+              className="px-8 transition-transform duration-200 ease-in-out transform hover:scale-105 hover:bg-accent hover:text-primary"
+            >
+              Interview Prep
+
             <Button size="lg" className="px-8">
               {BUTTONS_MENUS.GET_STARTED}
             </Button>
