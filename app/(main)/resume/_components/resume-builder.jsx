@@ -31,6 +31,9 @@ export default function ResumeBuilder({ initialContent }) {
   const [previewContent, setPreviewContent] = useState(initialContent);
   const { user } = useUser();
   const [resumeMode, setResumeMode] = useState("preview");
+  const [jobDescription, setJobDescription] = useState("");
+  const [analysisResult, setAnalysisResult] = useState(null);
+  const [analyzing, setAnalyzing] = useState(false);
 
   const {
     control,
@@ -130,6 +133,33 @@ export default function ResumeBuilder({ initialContent }) {
       console.error("PDF generation error:", error);
     } finally {
       setIsGenerating(false);
+    }
+  };
+
+  const analyzeResume = async () => {
+    setAnalyzing(true);
+    setAnalysisResult(null);
+    try {
+      const res = await fetch("/api/resume/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          resumeText: previewContent,
+          jobDescription,
+          userId: user?.id,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setAnalysisResult(data);
+        toast.success("ATS analysis complete!");
+      } else {
+        toast.error(data.error || "Analysis failed");
+      }
+    } catch (e) {
+      toast.error("Error analyzing resume");
+    } finally {
+      setAnalyzing(false);
     }
   };
 
@@ -415,6 +445,43 @@ export default function ResumeBuilder({ initialContent }) {
           </div>
         </TabsContent>
       </Tabs>
+
+      <div className="my-6 p-4 border rounded-lg bg-muted/50">
+        <h2 className="font-bold text-xl mb-2">ATS Resume Analyzer</h2>
+        <Textarea
+          value={jobDescription}
+          onChange={(e) => setJobDescription(e.target.value)}
+          placeholder="Paste the job description here..."
+          className="mb-2"
+        />
+        <Button onClick={analyzeResume} disabled={analyzing || !jobDescription}>
+          {analyzing ? (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          ) : null}
+          Analyze Resume
+        </Button>
+        {analysisResult && (
+          <div className="mt-4 p-3 border rounded bg-white">
+            <h3 className="font-semibold mb-2">ATS Analysis Results</h3>
+            <div className="mb-2">
+              <strong>Missing Keywords:</strong>{" "}
+              {analysisResult.missing_keywords?.join(", ") || "None"}
+            </div>
+            <div className="mb-2">
+              <strong>Present Keywords:</strong>{" "}
+              {analysisResult.present_keywords?.join(", ") || "None"}
+            </div>
+            <div className="mb-2">
+              <strong>Recommendations:</strong>
+              <ul className="list-disc ml-6">
+                {analysisResult.recommendations?.map((rec, i) => (
+                  <li key={i} dangerouslySetInnerHTML={{ __html: rec }} />
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

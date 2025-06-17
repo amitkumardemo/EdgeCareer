@@ -1,0 +1,23 @@
+2. Gap & Strength Analysis
+Match extracted keywords with job descriptions.
+
+Use cosine similarity (e.g., sklearn or SentenceTransformers).
+
+3. ATS Optimization
+Use TF-IDF or keyword embedding models to rank and suggest keywords.
+
+4. Batch Processing
+Use Celery with RabbitMQ or AWS Lambda for scalability.
+
+For ingest, FastAPI or Flask REST API + document upload support.
+
+5. Security & Compliance
+Use TLS (e.g., https behind Nginx or AWS API Gateway).
+
+At-rest AES encryption with RBAC tools like Clerk.dev or Firebase Auth.
+
+6. Explainable Insights
+Use LLMs (e.g., GPT, Gemini, Claude) for feedback generation.
+
+Fine-tune LLMs to give feedback like:
+"You are missing certifications often required for data analyst roles like SQL or Tableau."
