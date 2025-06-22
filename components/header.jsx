@@ -8,8 +8,7 @@ import {
   GraduationCap,
   ChevronDown,
   StarsIcon,
-  MoonIcon,
-  SunIcon,
+  BrainCircuitIcon
 } from "lucide-react";
 
 import Link from "next/link";
@@ -91,7 +90,7 @@ export default async function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/roadmap" className="flex items-center gap-2">
-                    <GraduationCap className="h-4 w-4" />
+                    <BrainCircuitIcon className="h-4 w-4" />
                     {BUTTONS_MENUS.ROADMAP}
                   </Link>
                 </DropdownMenuItem>
