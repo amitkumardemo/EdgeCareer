@@ -89,6 +89,12 @@ export default async function Header() {
                     {BUTTONS_MENUS.INTERVIEW_PREP}
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/roadmap" className="flex items-center gap-2">
+                    <GraduationCap className="h-4 w-4" />
+                    {BUTTONS_MENUS.ROADMAP}
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SignedIn>
