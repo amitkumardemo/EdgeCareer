@@ -33,6 +33,7 @@ import { updateUser } from "@/actions/user";
 const OnboardingForm = ({ industries }) => {
   const router = useRouter();
   const [selectedIndustry, setSelectedIndustry] = useState(null);
+  const [isDark, setIsDark] = useState(false);
 
   const {
     loading: updateLoading,
@@ -72,6 +73,10 @@ const OnboardingForm = ({ industries }) => {
       router.refresh();
     }
   }, [updateResult, updateLoading]);
+
+  useEffect(() => {
+    setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }, []);
 
   const watchIndustry = watch("industry");
 
