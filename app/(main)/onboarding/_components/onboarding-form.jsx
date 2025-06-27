@@ -33,7 +33,6 @@ import { updateUser } from "@/actions/user";
 const OnboardingForm = ({ industries }) => {
   const router = useRouter();
   const [selectedIndustry, setSelectedIndustry] = useState(null);
-  const [isDark, setIsDark] = useState(false);
 
   const {
     loading: updateLoading,
