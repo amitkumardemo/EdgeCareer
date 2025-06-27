@@ -18,30 +18,26 @@ export async function generateCoverLetter(data) {
   if (!user) throw new Error("User not found");
 
   const prompt = `
-    Write a professional cover letter for a ${data.jobTitle} position at ${
-    data.companyName
-  }.
-    
-    About the candidate:
-    - Industry: ${user.industry}
-    - Years of Experience: ${user.experience}
-    - Skills: ${user.skills?.join(", ")}
-    - Professional Background: ${user.bio}
-    
+    Write a ${data.tone || "professional"} cover letter for a ${data.jobTitle} position at ${
+      data.companyName
+    }.
+
+    Candidate Name: ${data.fullName || "The applicant"}
+    Industry: ${user.industry}
+    Years of Experience: ${user.experience}
+    Skills: ${user.skills?.join(", ")}
+    Bio: ${user.bio}
+
     Job Description:
     ${data.jobDescription}
-    
+
     Requirements:
-    1. Use a professional, enthusiastic tone
-    2. Highlight relevant skills and experience
-    3. Show understanding of the company's needs
-    4. Keep it concise (max 400 words)
-    5. Use proper business letter formatting in markdown
-    6. Include specific examples of achievements
-    7. Relate candidate's background to job requirements
-    
-    Format the letter in markdown.
-  `;
+    - Tailor it to this job and company
+    - Use a ${data.tone} tone
+    - Max 400 words, markdown format
+    - Highlight achievements with examples
+    `;
+
 
   try {
     const result = await model.generateContent(prompt);

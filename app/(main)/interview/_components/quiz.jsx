@@ -22,6 +22,7 @@ export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showExplanation, setShowExplanation] = useState(false);
+  const quizCompleted=false;
 
   const {
     loading: generatingQuiz,
@@ -71,6 +72,7 @@ export default function Quiz() {
     const score = calculateScore();
     try {
       await saveQuizResultFn(quizData, answers, score);
+      //setQuizCompleted(true);
       toast.success("Quiz completed!");
     } catch (error) {
       toast.error(error.message || "Failed to save quiz results");
@@ -143,9 +145,9 @@ export default function Quiz() {
           ))}
         </RadioGroup>
 
-        {showExplanation && (
+        {quizCompleted && (
           <div className="mt-4 p-4 bg-muted rounded-lg">
-            <p className="font-medium">Explanation:</p>
+            <p className="font-medium" >Explanation:</p>
             <p className="text-muted-foreground">{question.explanation}</p>
           </div>
         )}
@@ -155,7 +157,7 @@ export default function Quiz() {
           <Button
             onClick={() => setShowExplanation(true)}
             variant="outline"
-            disabled={!answers[currentQuestion]}
+            disabled={!quizCompleted}
           >
             {BUTTONS_MENUS.EXPLAIN}
           </Button>

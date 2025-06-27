@@ -1,27 +1,30 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { BUTTONS_MENUS } from "@/lib/constants";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { generateCoverLetter } from "@/actions/cover-letter";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 import useFetch from "@/hooks/use-fetch";
+import { generateCoverLetter } from "@/actions/cover-letter";
 import { coverLetterSchema } from "@/app/lib/schema";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+
+
+// TEMP INLINE schema (replace with import if needed)
+const schema = z.object({
+  fullName: z.string().min(1, "Full Name is required"),
+  tone: z.enum(["professional", "friendly", "enthusiastic"]),
+  companyName: z.string().min(1, "Company Name is required"),
+  jobTitle: z.string().min(1, "Job Title is required"),
+  jobDescription: z.string().min(10, "Job Description is too short"),
+});
 
 export default function CoverLetterGenerator() {
   const router = useRouter();
@@ -32,7 +35,7 @@ export default function CoverLetterGenerator() {
     formState: { errors },
     reset,
   } = useForm({
-    resolver: zodResolver(coverLetterSchema),
+    resolver: zodResolver(schema),
   });
 
   const {
@@ -41,78 +44,68 @@ export default function CoverLetterGenerator() {
     data: generatedLetter,
   } = useFetch(generateCoverLetter);
 
-  // Update content when letter is generated
+  const onSubmit = async (data) => {
+    console.log("🧾 Form Submitted With:", data);
+    try {
+      await generateLetterFn(data);
+    } catch (error) {
+      console.error("🔥 Error:", error);
+      toast.error(error.message || "Error generating cover letter");
+    }
+  };
+
   useEffect(() => {
     if (generatedLetter) {
-      toast.success("Cover letter generated successfully!");
+      console.log("✅ Got letter:", generatedLetter);
+      toast.success("Cover letter generated!");
       router.push(`/ai-cover-letter/${generatedLetter.id}`);
       reset();
     }
   }, [generatedLetter]);
 
-  const onSubmit = async (data) => {
-    try {
-      await generateLetterFn(data);
-    } catch (error) {
-      toast.error(error.message || "Failed to generate cover letter");
-    }
-  };
-
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Job Details</CardTitle>
-          <CardDescription>
-            Provide information about the position you're applying for
-          </CardDescription>
+          <CardTitle>Generate Cover Letter</CardTitle>
+          <CardDescription>Fill the fields and click submit</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Form fields remain the same */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="companyName">Company Name</Label>
-                <Input
-                  id="companyName"
-                  placeholder="Enter company name"
-                  {...register("companyName")}
-                />
-                {errors.companyName && (
-                  <p className="text-sm text-red-500">
-                    {errors.companyName.message}
-                  </p>
-                )}
+              <div>
+                <Label>Full Name</Label>
+                <Input {...register("fullName")} />
+                {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName.message}</p>}
               </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="jobTitle">Job Title</Label>
-                <Input
-                  id="jobTitle"
-                  placeholder="Enter job title"
-                  {...register("jobTitle")}
-                />
-                {errors.jobTitle && (
-                  <p className="text-sm text-red-500">
-                    {errors.jobTitle.message}
-                  </p>
-                )}
+              <div>
+                <Label>Tone</Label>
+                <select {...register("tone")} className="w-full border p-2 rounded">
+                  <option value="professional">Professional</option>
+                  <option value="friendly">Friendly</option>
+                  <option value="enthusiastic">Enthusiastic</option>
+                </select>
+                {errors.tone && <p className="text-red-500 text-sm">{errors.tone.message}</p>}
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="jobDescription">Job Description</Label>
-              <Textarea
-                id="jobDescription"
-                placeholder="Paste the job description here"
-                className="h-32"
-                {...register("jobDescription")}
-              />
-              {errors.jobDescription && (
-                <p className="text-sm text-red-500">
-                  {errors.jobDescription.message}
-                </p>
-              )}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label>Company Name</Label>
+                <Input {...register("companyName")} />
+                {errors.companyName && <p className="text-red-500 text-sm">{errors.companyName.message}</p>}
+              </div>
+              <div>
+                <Label>Job Title</Label>
+                <Input {...register("jobTitle")} />
+                {errors.jobTitle && <p className="text-red-500 text-sm">{errors.jobTitle.message}</p>}
+              </div>
+            </div>
+
+            <div>
+              <Label>Job Description</Label>
+              <Textarea {...register("jobDescription")} className="h-32" />
+              {errors.jobDescription && <p className="text-red-500 text-sm">{errors.jobDescription.message}</p>}
             </div>
 
             <div className="flex justify-end">
