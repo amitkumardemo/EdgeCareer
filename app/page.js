@@ -128,28 +128,28 @@ export default function LandingPage() {
   useLayoutEffect(() => {
 
 
-  gsap.from("#features-title", {
-    scale: 0.8,
-    opacity: 0,
-    duration: 0.7,
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: "#features-title",
-      start: "top 80%",
-    },
-  });
+    gsap.from("#features-title", {
+      scale: 0.8,
+      opacity: 0,
+      duration: 0.7,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: "#features-title",
+        start: "top 80%",
+      },
+    });
 
-  gsap.from(".feature-card", {
-    y: 60,
-    opacity: 0,
-    duration: 0.8,
-    stagger: 0.2,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: ".feature-card",
-      start: "top 85%",
-    },
-  });
+    gsap.from(".feature-card", {
+      y: 60,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".feature-card",
+        start: "top 85%",
+      },
+    });
 
     // Stats number animation
     const statEls = document.querySelectorAll('.stat-number');
@@ -191,19 +191,19 @@ export default function LandingPage() {
     });
     gsap.from(".how-card", {
       y: 60,
-    opacity: 0,
-    duration: 0.8,
-    stagger: 0.2,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: ".how-card",
-      start: "top 85%",
-    },
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".how-card",
+        start: "top 85%",
+      },
     });
-  return () => {
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-  };
-}, []);
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
 
   return (
     <>
@@ -233,8 +233,8 @@ export default function LandingPage() {
           transition={{ duration: 1 }}
           viewport={{ once: true }}
         />
-     
-        <div className="container mx-auto px-4 md:px-6">
+
+        <div className="container mx-auto px-2 md:px-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -258,7 +258,7 @@ export default function LandingPage() {
             <SplitText  /> */}
             <SplitText
               text="AI Features to Accelerate Your Career"
-              className="text-5xl font-semibold text-center tracking-tighter ml-[25%] mr-auto mb-12"
+              className="text-5xl font-semibold text-center tracking-tighter ml-[15%] mr-auto mb-12"
               delay={100}
               duration={0.2}
               ease="power3.out"
@@ -268,7 +268,7 @@ export default function LandingPage() {
               threshold={0.1}
               rootMargin="-100px"
               textAlign="center"
-              onLetterAnimationComplete={()=>{}}
+              onLetterAnimationComplete={() => { }}
             />
 
             <motion.div
@@ -298,8 +298,8 @@ export default function LandingPage() {
                 >
                   <motion.div
                     className="w-full h-full"
-                    whileHover={{ 
-                      scale: 1.04, 
+                    whileHover={{
+                      scale: 1.04,
                       transition: { duration: 0.2, type: "spring", stiffness: 300 }
                     }}
                     whileTap={{ scale: 0.98 }}
@@ -321,16 +321,16 @@ export default function LandingPage() {
                           whileHover={{ opacity: 1 }}
                           transition={{ duration: 0.5 }}
                         />
-                        
+
                         {/* Animated corner accent */}
-                        <motion.div 
+                        <motion.div
                           className="absolute top-0 right-0 w-0 h-0 border-t-[80px] border-t-primary/20 border-l-[80px] border-l-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                          style={{ 
-                            clipPath: "polygon(100% 0, 0 0, 100% 100%)" 
+                          style={{
+                            clipPath: "polygon(100% 0, 0 0, 100% 100%)"
                           }}
                         />
-                        
-                        <motion.div 
+
+                        <motion.div
                           className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-br from-primary/20 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:w-16 group-hover:h-16"
                         />
 
@@ -345,8 +345,8 @@ export default function LandingPage() {
                                 type: "spring",
                                 stiffness: 200,
                               }}
-                              className="text-gray-400 mb-4 bg-gradient-to-br from-primary/20 to-transparent p-4 pb-0 rounded-full relative"
-                              whileHover={{ 
+                              className="text-gray-400 mb-4 bg-gradient-to-br from-primary/20 to-transparent p-4 pb-0 rounded-full relative "
+                              whileHover={{
                                 rotate: [0, -5, 5, -5, 0],
                                 scale: 1.1,
                                 transition: { duration: 0.6 }
@@ -354,25 +354,28 @@ export default function LandingPage() {
                             >
                               {/* Pulsing ring effect */}
                               <motion.div
-                                className="absolute inset-0 rounded-full border-2 border-primary/30"
+                                className="absolute inset-0 rounded-full border-2 border-primary/30 pointer-events-none"
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
-                                animate={{ 
+                                animate={{
                                   scale: [1, 1.2, 1],
                                   opacity: [0.7, 0, 0.7],
                                 }}
-                                transition={{ 
+                                transition={{
                                   duration: 2.5,
                                   repeat: Infinity,
+                                  repeatType: "loop",
                                   repeatDelay: index % 2 ? 0.5 : 1,
+                                  ease: "easeInOut",
                                 }}
                               />
+
                               {feature.icon}
                             </motion.div>
 
                             {/* Title with glowing effect on hover */}
-                            <motion.h3 
+                            <motion.h3
                               className="text-xl font-bold mb-3 text-gray-300 tracking-tight hover:text-white transition-colors duration-300"
                               whileHover={{
                                 textShadow: "0 0 8px rgba(124, 58, 237, 0.6)"
@@ -382,7 +385,7 @@ export default function LandingPage() {
                             </motion.h3>
 
                             {/* Description with reveal animation */}
-                            <motion.p 
+                            <motion.p
                               className="text-white/70 line-clamp-3 text-sm group-hover:text-white/90 transition-colors duration-300"
                               initial={{ opacity: 0.8 }}
                               whileHover={{ opacity: 1 }}
@@ -395,13 +398,13 @@ export default function LandingPage() {
                           {feature.button && (
                             <motion.div
                               className="mt-6"
-                              whileHover={{ 
-                                scale: 1.05, 
+                              whileHover={{
+                                scale: 1.05,
                                 y: -3,
-                                transition: { 
+                                transition: {
                                   type: "spring",
                                   stiffness: 400,
-                                  damping: 10 
+                                  damping: 10
                                 }
                               }}
                               whileTap={{ scale: 0.95 }}
@@ -410,8 +413,8 @@ export default function LandingPage() {
                                 <Button
                                   variant="ghost"
                                   size="sm"
-                                  className="text-gray-200 border border-primary/50 hover:bg-primary/30 
-                                           transition-all duration-300 relative overflow-hidden group/btn"
+                                  className="text-gray-200 border border-primary/50 hover:bg-primary/30 hover:text-gray-200 
+                                           transition-all duration-300 relative overflow-hidden group/btn hover:border-white "
                                 >
                                   <span className="relative z-10 flex items-center gap-2">
                                     {feature.button.text}
@@ -420,16 +423,16 @@ export default function LandingPage() {
                                       initial={{ x: -10, opacity: 0 }}
                                       animate={{ x: 0, opacity: 1 }}
                                       transition={{ duration: 0.2 }}
-                                      fill="none" 
-                                      viewBox="0 0 24 24" 
+                                      fill="none"
+                                      viewBox="0 0 24 24"
                                       stroke="currentColor"
                                     >
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                     </motion.svg>
                                   </span>
-                                  
+
                                   {/* Button background animation */}
-                                  <motion.span 
+                                  <motion.span
                                     className="absolute inset-0 bg-primary/20"
                                     initial={{ x: "-100%" }}
                                     whileHover={{ x: "0%" }}
@@ -447,14 +450,14 @@ export default function LandingPage() {
                             whileInView={{ width: "40%", opacity: 1 }}
                             transition={{ delay: index * 0.1 + 0.5, duration: 0.5 }}
                             viewport={{ once: true }}
-                            whileHover={{ 
-                              width: "60%", 
+                            whileHover={{
+                              width: "60%",
                               backgroundColor: "rgba(124, 58, 237, 0.6)",
                               transition: { duration: 0.3 }
                             }}
                           />
                         </div>
-                        
+
                         {/* Sparkle effect on hover */}
                         <motion.div
                           className="absolute top-4 left-4 w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-80"
@@ -531,44 +534,45 @@ export default function LandingPage() {
         {/* Background decorative elements - adjust positioning to prevent overflow */}
         <motion.div
           className="absolute -z-10 w-72 h-72 rounded-full bg-primary/5 blur-[80px] opacity-70 top-20 right-0" // Changed from -right-20 to right-0
-          animate={{ 
+          animate={{
             x: [0, 20, 0], // Reduced movement range from 30 to 20
-            opacity: [0.5, 0.7, 0.5] 
+            opacity: [0.5, 0.7, 0.5]
           }}
-          transition={{ 
-            duration: 8, 
+          transition={{
+            duration: 8,
             repeat: Infinity,
-            repeatType: "reverse" 
+            repeatType: "reverse"
           }}
         />
         <motion.div
           className="absolute -z-10 w-96 h-96 rounded-full bg-secondary/5 blur-[100px] opacity-60 bottom-20 left-0" // Changed from -left-20 to left-0
-          animate={{ 
+          animate={{
             x: [0, -20, 0], // Reduced movement range from -30 to -20
-            opacity: [0.4, 0.6, 0.4] 
+            opacity: [0.4, 0.6, 0.4]
           }}
-          transition={{ 
-            duration: 10, 
+          transition={{
+            duration: 10,
             repeat: Infinity,
             repeatType: "reverse",
-            delay: 1 
+            delay: 1
           }}
         />
 
         <div className="container mx-auto px-4 md:px-6 relative pt-10 pb-10">
           <div className="text-center max-w-3xl mx-auto mb-6">
-            <SplitText
-              text="How It Works"
-              className="text-5xl font-bold bg-[#2184c3] text-gray-200 px-4 py-1"
-              delay={50}
-              duration={0.15}
+          <SplitText
+              text="How it Works"
+              className="text-5xl font-semibold text-center tracking-tighter mx-auto mr-auto mb-1"
+              delay={100}
+              duration={0.2}
               ease="power3.out"
               splitType="chars"
-              from={{ opacity: 0, y: 30 }}
+              from={{ opacity: 0, y: 40 }}
               to={{ opacity: 1, y: 0 }}
               threshold={0.1}
               rootMargin="-100px"
               textAlign="center"
+              onLetterAnimationComplete={() => { }}
             />
             <ShinyText
               text="Four simple steps to accelerate your career growth with AI-powered guidance"
@@ -580,7 +584,7 @@ export default function LandingPage() {
           {/* Timeline with connected steps */}
           <div className="max-w-6xl mx-auto relative mt-24">
             {/* Connection line */}
-            <motion.div 
+            <motion.div
               className="absolute top-8 left-0 right-0 h-1 bg-gradient-to-r from-primary/10 via-primary/50 to-primary/10 rounded-full hidden lg:block"
               initial={{ scaleX: 0, originX: 0 }}
               whileInView={{ scaleX: 1 }}
@@ -589,7 +593,7 @@ export default function LandingPage() {
             />
 
             {/* Progress indicator */}
-            <motion.div 
+            <motion.div
               className="absolute top-8 left-0 h-1 bg-primary hidden lg:block"
               initial={{ width: 0 }}
               whileInView={{ width: "100%" }}
@@ -603,8 +607,8 @@ export default function LandingPage() {
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    duration: 0.6, 
+                  transition={{
+                    duration: 0.6,
                     delay: index * 0.15,
                     type: "spring",
                     stiffness: 50
@@ -618,8 +622,8 @@ export default function LandingPage() {
                     className="absolute -top-12 font-bold text-5xl text-neutral-700"
                     initial={{ opacity: 0, scale: 0.5 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ 
-                      delay: 0.2 + index * 0.15, 
+                    transition={{
+                      delay: 0.2 + index * 0.15,
                       duration: 0.5,
                       type: "spring",
                       stiffness: 100
@@ -628,18 +632,18 @@ export default function LandingPage() {
                   >
                     {index + 1}
                   </motion.div>
-                  
+
                   {/* Interactive icon container */}
-                  <motion.div 
+                  <motion.div
                     className="w-20 h-20 rounded-full bg-gradient-to-br from-background to-gray-900 border border-primary/20 flex items-center justify-center relative shadow-lg cursor-pointer z-10"
-                    whileHover={{ 
-                      scale: 1.15, 
+                    whileHover={{
+                      scale: 1.15,
                       boxShadow: "0 0 25px rgba(124, 58, 237, 0.4)",
                       borderColor: "rgba(124, 58, 237, 0.5)"
                     }}
                     whileTap={{ scale: 0.95 }}
-                    transition={{ 
-                      type: "spring", 
+                    transition={{
+                      type: "spring",
                       stiffness: 400,
                       damping: 15
                     }}
@@ -647,42 +651,43 @@ export default function LandingPage() {
                     {/* Pulse effect */}
                     <motion.div
                       className="absolute inset-0  rounded-full border-2 border-yellow-500"
-                      animate={{ 
+                      animate={{
                         boxShadow: [
-                          "0 0 0 0 rgba(124, 58, 237, 0.4)", 
+                          "0 0 0 0 rgba(124, 58, 237, 0.4)",
                           "0 0 0 10px rgba(124, 58, 237, 0)"
                         ],
                       }}
-                      transition={{ 
+                      transition={{
                         duration: 2.5,
                         repeat: Infinity,
                         delay: index * 0.5
                       }}
                     />
-                    
+
                     {/* Icon */}
                     <motion.div
                       initial={{ rotate: 0 }}
                       whileHover={{ rotate: 15 }}
                       transition={{ type: "spring", stiffness: 200 }}
-                      className="text-primary bg-gray-800 rounded-full  w-20 p-5  flex items-center justify-center"
+                      className="text-black dark:text-white bg-gray-200 dark:bg-gray-800 rounded-full w-20 p-5 flex items-center justify-center"
                     >
                       {item.icon}
                     </motion.div>
+
                   </motion.div>
-                  
+
                   {/* Content */}
-                  <motion.div 
+                  <motion.div
                     className="space-y-2"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 0.3 + index * 0.2, duration: 0.5 }}
                     viewport={{ once: true }}
                   >
-                    <h3 className="font-semibold text-xl text-white">
+                    <h3 className="font-semibold text-xl text-black dark:text-white">
                       {item.title}
                     </h3>
-                    
+
                     <motion.div
                       className="h-0.5 w-12 bg-primary/50 mx-auto rounded-full"
                       initial={{ width: 0 }}
@@ -690,7 +695,7 @@ export default function LandingPage() {
                       transition={{ delay: 0.4 + index * 0.2, duration: 0.5 }}
                       viewport={{ once: true }}
                     />
-                    
+
                     {/* <motion.p 
                       className="text-muted-foreground text-sm"
                       initial={{ opacity: 0 }}
@@ -701,40 +706,40 @@ export default function LandingPage() {
                       {item.description}
                     </motion.p> */}
                     <ShinyText
-                    text={item.description}
-                    speed={2}
-                    className=" font-semibold text-sm mt-2"
+                      text={item.description}
+                      speed={2}
+                      className=" font-semibold text-sm mt-2"
                     />
                   </motion.div>
-                  
+
                   {/* Connection arrow to next step */}
                   {index < howItWorks.length - 1 && (
-                    <motion.div 
+                    <motion.div
                       className="hidden lg:block absolute top-8 left-[60%] w-[calc(40%-10px)]" // Fixed width to prevent overflow
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       transition={{ delay: 0.8 + index * 0.3, duration: 0.7 }}
                       viewport={{ once: true }}
                     >
-                      <motion.svg 
+                      <motion.svg
                         className="w-full h-full text-primary/40"
-                        viewBox="0 0 100 40" 
+                        viewBox="0 0 100 40"
                         initial={{ pathLength: 0, opacity: 0.2 }}
                         whileInView={{ pathLength: 1, opacity: 1 }}
                         transition={{ delay: 1 + index * 0.3, duration: 1 }}
                         viewport={{ once: true }}
                       >
-                        <path 
-                          d="M0,20 C30,10 70,30 100,20" 
-                          fill="none" 
-                          stroke="currentColor" 
+                        <path
+                          d="M0,20 C30,10 70,30 100,20"
+                          fill="none"
+                          stroke="currentColor"
                           strokeWidth="1"
                           strokeDasharray="4,4"
                         />
-                        <motion.path 
-                          d="M90,15 L100,20 L90,25" 
-                          fill="none" 
-                          stroke="currentColor" 
+                        <motion.path
+                          d="M90,15 L100,20 L90,25"
+                          fill="none"
+                          stroke="currentColor"
                           strokeWidth="1"
                           initial={{ opacity: 0 }}
                           whileInView={{ opacity: 1 }}
@@ -747,7 +752,7 @@ export default function LandingPage() {
                 </motion.div>
               ))}
             </div>
-            
+
             {/* Interactive call-to-action */}
             <motion.div
               className="mt-16 text-center"
@@ -757,24 +762,24 @@ export default function LandingPage() {
               viewport={{ once: true }}
             >
               <Link href="/dashboard">
-                <Button 
-                  variant="outline" 
+                <Button
                   size="lg"
-                  className="border-primary/30  hover:bg-primary/20 bg-gray-900 group relative overflow-hidden"
+                  className="px-8 relative overflow-hidden group"
                 >
-                  <span className="relative  z-10 flex items-center gap-2 ">
-                    Start Your Journey
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
-                  </span>
+                  <motion.span className="relative z-10 flex items-center gap-2">
+                    {BUTTONS_MENUS.GET_STARTED}
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </motion.span>
                   <motion.span
-                    className="absolute inset-0 bg-primary/10"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "0%" }}
+                    className="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary rounded-md -z-10"
+                    initial={{ x: -100, opacity: 0.5 }}
+                    whileHover={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.3 }}
                   />
                 </Button>
+
               </Link>
-              
+
               {/* User interaction hint */}
               <motion.p
                 className="text-muted-foreground text-sm mt-4 flex items-center justify-center gap-2"
@@ -811,7 +816,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 md:px-6 flex justify-center items-center flex-col">
           <SplitText
             text="What Our Users Say"
-            className="text-4xl bg-amber-400 px-4 py-1 font-bold mb-16 text-center"
+            className="text-4xl px-4 py-1 font-bold mb-16 text-center"
             delay={50}
             duration={0.12}
             ease="power2.out"
@@ -936,7 +941,7 @@ export default function LandingPage() {
             viewport={{ once: true }}
           >
             <motion.h2
-              className="text-3xl font-bold tracking-tighter text-primary-foreground sm:text-4xl md:text-5xl"
+              className="text-3xl font-bold tracking-tighter text-black sm:text-4xl md:text-5xl"
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -946,7 +951,7 @@ export default function LandingPage() {
             </motion.h2>
 
             <motion.p
-              className="mx-auto max-w-[600px] text-primary-foreground/80 md:text-xl"
+              className="mx-auto max-w-[600px] text-black md:text-xl"
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: {
@@ -992,7 +997,7 @@ export default function LandingPage() {
             </motion.div>
 
             <motion.div
-              className="flex items-center gap-2 mt-8 text-primary-foreground/70"
+              className="flex items-center gap-2 mt-8 text-black"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2 }}

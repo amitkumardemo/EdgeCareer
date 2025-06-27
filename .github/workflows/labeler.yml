@@ -1,0 +1,27 @@
+SSOC S4:
+  - '**'
+
+Beginner:
+  - 'components/**'
+  - 'public/**'
+  - 'starter/**'
+
+Intermediate:
+  - 'hooks/**'
+  - 'data/**'
+  - 'lib/**'
+
+Advanced:
+  - 'prisma/**'
+  - 'middleware.js'
+  - 'next.config.mjs'
+
+documentation:
+  - '**/*.md'
+  - 'docs/**'
+
+bug:
+  - '**/*.js'
+  - '**/*.jsx'
+  - '**/*.mjs'
+  - '**/*.ts'

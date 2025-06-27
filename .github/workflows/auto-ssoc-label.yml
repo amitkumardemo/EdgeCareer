@@ -1,0 +1,19 @@
+name: Auto-label SSOC S4
+
+on:
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  add-label:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Add SSOC S4 label to PR
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: SSOC S4

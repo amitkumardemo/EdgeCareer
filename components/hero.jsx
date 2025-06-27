@@ -261,7 +261,7 @@ useEffect(() => {
                 text="AI-powered career assistant for smarter job search, resume
                 optimization, mock interviews, and industry insights."
                 speed={3}
-                className="mx-auto max-w-[600px] md:text-xl relative z-10"
+                className="mx-auto max-w-[600px] md:text-xl relative z-10 text-muted-foreground"
               />
               {quote && (
                 <motion.div

@@ -31,7 +31,7 @@
     "date-fns": "^4.1.0",
     "framer-motion": "^12.16.0",
     "gsap": "^3.13.0",
-    "html2pdf.js": "^0.10.2",
+    "html2pdf.js": "^0.10.3",
     "inngest": "^3.29.3",
     "lucide-react": "^0.471.1",
     "next": "15.1.4",
