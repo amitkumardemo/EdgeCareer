@@ -42,41 +42,56 @@ async function parseAIResponse(content) {
 }
 
 /**
- * Safely extracts JSON from markdown code blocks
+ * Safely extracts JSON from markdown code blocks without using complex regex
  * @param {string} content - The content containing markdown code blocks
  * @returns {Object|Array|null} The parsed JSON or null if no valid JSON found
  */
 function extractJsonFromMarkdown(content) {
-  const codeBlockPattern = /^```(?:json)?\s*([\s\S]*?[^\s])\s*$/gm;
-  const blocks = [];
-  let match;
+  // First try to find and parse code blocks
+  const codeBlocks = [];
+  let startIndex = 0;
   
-  // Find all code blocks that might contain JSON
-  while ((match = codeBlockPattern.exec(content)) !== null) {
-    try {
-      const jsonContent = match[1].trim();
-      if (jsonContent) {
-        // Try to parse as JSON
+  // Find all code blocks by looking for triple backticks
+  while (startIndex < content.length) {
+    const blockStart = content.indexOf('```', startIndex);
+    if (blockStart === -1) break;
+    
+    const blockEnd = content.indexOf('```', blockStart + 3);
+    if (blockEnd === -1) break;
+    
+    const blockContent = content.slice(blockStart + 3, blockEnd).trim();
+    // Remove optional language specifier (e.g., ```json)
+    const jsonContent = blockContent.replace(/^[^\n\r]*[\n\r]/, '').trim();
+    
+    if (jsonContent) {
+      try {
         return JSON.parse(jsonContent);
+      } catch (e) {
+        // Continue to next block if parsing fails
       }
-    } catch (e) {
-      // If parsing fails, continue to next potential block
-      continue;
     }
+    
+    startIndex = blockEnd + 3;
   }
   
-  // If no code blocks found, try to find a JSON object or array in the content
+  // If no code blocks found, try to find JSON in the content
   try {
     // Look for JSON object
-    const objectMatch = content.match(/\{[\s\S]*?\}/);
-    if (objectMatch) {
-      return JSON.parse(objectMatch[0]);
+    const firstBrace = content.indexOf('{');
+    if (firstBrace !== -1) {
+      const lastBrace = findMatchingBrace(content, firstBrace, '{', '}');
+      if (lastBrace !== -1) {
+        return JSON.parse(content.slice(firstBrace, lastBrace + 1));
+      }
     }
     
     // Look for JSON array
-    const arrayMatch = content.match(/\[[\s\S]*?\]/);
-    if (arrayMatch) {
-      return JSON.parse(arrayMatch[0]);
+    const firstBracket = content.indexOf('[');
+    if (firstBracket !== -1) {
+      const lastBracket = findMatchingBrace(content, firstBracket, '[', ']');
+      if (lastBracket !== -1) {
+        return JSON.parse(content.slice(firstBracket, lastBracket + 1));
+      }
     }
   } catch (e) {
     // If parsing fails, return null
@@ -84,6 +99,47 @@ function extractJsonFromMarkdown(content) {
   }
   
   return null;
+}
+
+/**
+ * Helper function to find matching closing brace/bracket
+ */
+function findMatchingBrace(str, startIndex, openChar, closeChar) {
+  let depth = 1;
+  let inString = false;
+  let escapeNext = false;
+  
+  for (let i = startIndex + 1; i < str.length; i++) {
+    const char = str[i];
+    
+    if (escapeNext) {
+      escapeNext = false;
+      continue;
+    }
+    
+    if (char === '\\') {
+      escapeNext = true;
+      continue;
+    }
+    
+    if (char === '"' || char === '\'') {
+      inString = !inString;
+      continue;
+    }
+    
+    if (inString) continue;
+    
+    if (char === openChar) {
+      depth++;
+    } else if (char === closeChar) {
+      depth--;
+      if (depth === 0) {
+        return i;
+      }
+    }
+  }
+  
+  return -1; // No matching close found
 }
 
 export async function POST(req) {
