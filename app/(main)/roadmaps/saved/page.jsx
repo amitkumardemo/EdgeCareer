@@ -58,18 +58,21 @@ export default function SavedRoadmapsPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-      <div className="flex items-center mb-8">
+      <div className="flex flex-col items-center mb-10 text-center">
         <Button
           variant="ghost"
           onClick={() => router.back()}
-          className="mr-4"
+          className="self-start mb-4 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+        <h1 className="text-3xl font-bold text-black dark:text-white">
           Your Saved Learning Paths
         </h1>
+        <p className="mt-2 text-gray-600 dark:text-gray-400">
+          View and manage your saved learning paths
+        </p>
       </div>
 
       {selectedRoadmap && (
@@ -81,25 +84,25 @@ export default function SavedRoadmapsPage() {
       )}
 
       {error && (
-        <div className="bg-red-900/30 border border-red-800 text-red-200 px-4 py-3 rounded-lg mb-8">
+        <div className="bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-200 px-4 py-3 rounded-lg mb-8">
           {error}
         </div>
       )}
 
       {loading ? (
         <div className="flex justify-center py-12">
-          <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
+          <Loader2 className="h-8 w-8 animate-spin text-black dark:text-white" />
         </div>
       ) : savedRoadmaps.length === 0 ? (
-        <div className="text-center py-16 border-2 border-dashed border-gray-800 rounded-lg">
-          <BookOpen className="mx-auto h-12 w-12 text-gray-500 mb-4" />
-          <h3 className="text-lg font-medium text-gray-200">No saved learning paths</h3>
-          <p className="mt-2 text-gray-400">
+        <div className="text-center py-16 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg">
+          <BookOpen className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500 mb-4" />
+          <h3 className="text-lg font-medium text-black dark:text-white">No saved learning paths</h3>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
             Generate and save a learning path to see it here.
           </p>
           <Button
             onClick={() => router.push('/roadmaps')}
-            className="mt-6 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+            className="mt-6 bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 border border-black dark:border-white"
           >
             Create New Roadmap
           </Button>
@@ -107,35 +110,26 @@ export default function SavedRoadmapsPage() {
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {savedRoadmaps.map((roadmap) => (
-            <Card key={roadmap.id} className="border-gray-800 bg-gray-900/50 hover:bg-gray-900/70 transition-colors">
+            <Card key={roadmap.id} className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-black hover:shadow-md transition-shadow">
               <CardHeader>
-                <CardTitle className="text-xl font-semibold text-white line-clamp-2 h-14">
+                <CardTitle className="text-xl font-semibold text-black dark:text-white line-clamp-2 h-14">
                   {roadmap.title}
                 </CardTitle>
-                <div className="flex items-center text-sm text-gray-400">
+                <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                   <span>{roadmap.steps.length} steps</span>
                   <span className="mx-2">•</span>
                   <span>{formatDate(roadmap.createdAt)}</span>
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="flex justify-between items-center">
-                  <Button
-                    onClick={() => loadRoadmap(roadmap)}
-                    variant="outline"
-                    className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 border-0 text-white"
-                  >
-                    <LayoutDashboard className="h-4 w-4 mr-2" />
-                    Track Progress
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="text-indigo-400 hover:bg-indigo-900/20 hover:text-indigo-300"
-                    onClick={() => router.push(`/roadmaps?load=${roadmap.id}`)}
-                  >
-                    View Details
-                  </Button>
-                </div>
+                <Button
+                  onClick={() => loadRoadmap(roadmap)}
+                  variant="outline"
+                  className="w-full border border-black dark:border-white text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <LayoutDashboard className="h-4 w-4 mr-2" />
+                  Track Progress
+                </Button>
               </CardContent>
             </Card>
           ))}

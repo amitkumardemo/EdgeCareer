@@ -8,8 +8,7 @@ import {
   GraduationCap,
   ChevronDown,
   StarsIcon,
-  MoonIcon,
-  SunIcon,
+  BrainCircuitIcon,
 } from "lucide-react";
 
 import Link from "next/link";
@@ -87,6 +86,12 @@ export default async function Header() {
                   <Link href="/interview" className="flex items-center gap-2">
                     <GraduationCap className="h-4 w-4" />
                     {BUTTONS_MENUS.INTERVIEW_PREP}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/roadmaps" className="flex items-center gap-2">
+                    <BrainCircuitIcon className="h-4 w-4" />
+                    {BUTTONS_MENUS.ROADMAP}
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>

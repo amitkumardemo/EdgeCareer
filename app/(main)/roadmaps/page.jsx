@@ -52,33 +52,25 @@ export default function RoadmapPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-extrabold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+      <div className="text-center mb-10">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-black dark:text-white mb-4">
           Learning Path Generator
         </h1>
-        <div className="flex gap-2">
-          <Button
-            onClick={() => setShowRoadmapViewer(true)}
-            variant="outline"
-            className="flex items-center gap-2 border-gray-700 hover:bg-gray-800"
-            disabled={roadmap.length === 0}
-          >
-            <LayoutDashboard className="h-4 w-4" />
-            Track Progress
-          </Button>
-          <Button
-            onClick={() => router.push('/roadmaps/saved')}
-            variant="outline"
-            className="flex items-center gap-2 border-gray-700 hover:bg-gray-800"
-          >
-            <BookOpen className="h-4 w-4" />
-            Saved Roadmaps
-          </Button>
-        </div>
+        <p className="text-lg text-gray-600 dark:text-gray-400">
+          Enter a topic to generate a personalized learning roadmap
+        </p>
       </div>
-      <p className="text-lg text-gray-400 text-center mb-10">
-        Enter a topic to generate a personalized learning roadmap
-      </p>
+      
+      <div className="flex justify-center mb-8">
+        <Button
+          onClick={() => router.push('/roadmaps/saved')}
+          variant="outline"
+          className="flex items-center gap-2 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 mx-auto text-black dark:text-white"
+        >
+          <BookOpen className="h-4 w-4" />
+          View Saved Roadmaps
+        </Button>
+      </div>
       
       <form onSubmit={generateRoadmap} className="max-w-3xl mx-auto mb-12">
         <div className="flex gap-3 w-full">
@@ -88,12 +80,12 @@ export default function RoadmapPage() {
             onChange={(e) => setTopic(e.target.value)}
             placeholder="e.g., Learn React, Master Python, Data Science Fundamentals"
             disabled={loading}
-            className="flex-1 bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            className="flex-1 bg-white border-gray-300 text-black placeholder-gray-500 focus:ring-2 focus:ring-gray-400 focus:border-gray-400"
           />
           <Button
             type="submit"
             disabled={loading || !topic.trim()}
-            className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold px-8 py-2.5 rounded-lg transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
+            className="bg-black text-white hover:bg-gray-800 font-semibold px-8 py-2.5 rounded-lg transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none border border-black"
           >
             {loading ? (
               <>
@@ -116,7 +108,7 @@ export default function RoadmapPage() {
       {roadmap.length > 0 ? (
         <div className="mt-8">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold text-black dark:text-white">
               Your Learning Path: {topic}
             </h2>
             <Button
@@ -174,7 +166,7 @@ export default function RoadmapPage() {
             </div>
           )}
           <div className="relative">
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-700"></div>
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-700"></div>
             {roadmap.map((step, index) => (
               <div 
                 key={step.id || index} 
@@ -186,19 +178,19 @@ export default function RoadmapPage() {
                 }}
               >
                 <div className="absolute left-0 -translate-x-1/2 top-0 w-12 h-12 flex items-center justify-center z-10">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold flex items-center justify-center shadow-md">
+                  <div className="w-10 h-10 rounded-full bg-black dark:bg-white text-white dark:text-black font-bold flex items-center justify-center shadow-md border border-gray-300 dark:border-gray-700">
                     {index + 1}
                   </div>
                 </div>
-                <Card className="bg-gray-800 border-gray-700 overflow-hidden transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
+                <Card className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 overflow-hidden transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
                   <CardHeader>
-                    <CardTitle className="text-xl font-semibold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+                    <CardTitle className="text-xl font-semibold text-black dark:text-white">
                       {step.title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-300 mb-4">{step.description}</p>
-                    <div className="flex items-center text-amber-400 text-sm">
+                    <p className="text-gray-700 dark:text-gray-300 mb-4">{step.description}</p>
+                    <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm">
                       <span>⏱️ {step.estimated_time}</span>
                     </div>
                   </CardContent>

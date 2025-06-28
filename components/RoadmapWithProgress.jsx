@@ -98,80 +98,98 @@ export default function RoadmapWithProgress({ roadmap, topic, onClose }) {
   };
 
   if (!roadmap || roadmap.length === 0) {
-    return null;
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+        <Card className="w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-white dark:bg-black border border-gray-200 dark:border-gray-800">
+          <CardHeader className="sticky top-0 bg-white dark:bg-black z-10 border-b border-gray-200 dark:border-gray-800">
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-2xl font-bold text-black dark:text-white">No Roadmap Available</CardTitle>
+              <button
+                onClick={onClose}
+                className="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
+              >
+                ✕
+              </button>
+            </div>
+          </CardHeader>
+          <CardContent className="p-6 text-gray-600 dark:text-gray-400">
+            <p>No steps found in this roadmap.</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-gray-900 border-gray-800">
-        <CardHeader className="sticky top-0 bg-gray-900 z-10 border-b border-gray-800">
-          <div className="flex justify-between items-start">
-            <CardTitle className="text-2xl font-bold text-white">
-              {topic} - Learning Path
-            </CardTitle>
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+      <Card className="w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-white dark:bg-black border border-gray-200 dark:border-gray-800">
+        <CardHeader className="sticky top-0 bg-white dark:bg-black z-10 border-b border-gray-200 dark:border-gray-800">
+          <div className="flex justify-between items-center">
+            <div>
+              <CardTitle className="text-2xl font-bold text-black dark:text-white">{topic}</CardTitle>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                {Object.values(completedSteps).filter(Boolean).length} of {roadmap.length} steps completed
+              </p>
+            </div>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-white"
-              aria-label="Close"
+              className="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white text-2xl"
             >
               ✕
             </button>
           </div>
           <div className="mt-4">
-            <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium text-gray-300">Progress</span>
-              <span className="text-sm font-medium text-gray-300">{progress}%</span>
+            <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
+              <span>Progress</span>
+              <span>{progress}%</span>
             </div>
-            <Progress value={progress} className="h-2 bg-gray-800" />
+            <Progress 
+              value={progress} 
+              className="h-2 bg-gray-200 dark:bg-gray-800" 
+              indicatorClassName="bg-black dark:bg-white"
+            />
           </div>
         </CardHeader>
         <CardContent className="p-6">
-          <div className="space-y-4">
+          <div className="space-y-6">
             {roadmap.map((step, index) => {
               const stepId = step.id || index;
-              const isCompleted = !!completedSteps[stepId];
+              const isCompleted = completedSteps[stepId] || false;
               
               return (
-                <div 
-                  key={stepId} 
-                  className={`p-4 rounded-lg border transition-colors ${
-                    isCompleted 
-                      ? 'border-green-500/30 bg-green-500/5' 
-                      : 'border-gray-800 hover:border-gray-700'
-                  }`}
-                >
-                  <div className="flex items-start space-x-3">
+                <div key={stepId} className="flex items-start gap-4">
+                  <div className="flex-shrink-0 mt-1">
                     <Checkbox
                       id={`step-${stepId}`}
                       checked={isCompleted}
                       onCheckedChange={() => toggleStep(stepId)}
                       disabled={isUpdating}
-                      className={`mt-1 h-5 w-5 rounded border-gray-600 ${
+                      className={`mt-1 h-5 w-5 rounded border-gray-400 dark:border-gray-600 ${
                         isCompleted 
-                          ? 'bg-green-500 border-green-500 text-white' 
-                          : 'bg-gray-800'
+                          ? 'bg-black dark:bg-white border-black dark:border-white' 
+                          : 'bg-white dark:bg-black'
                       }`}
                     />
-                    <div className="flex-1">
-                      <label 
-                        htmlFor={`step-${stepId}`}
-                        className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer ${
-                          isCompleted ? 'text-green-400' : 'text-white'
-                        }`}
-                      >
-                        {step.title || `Step ${index + 1}`}
-                      </label>
-                      {step.description && (
-                        <p className="mt-1 text-sm text-gray-400">
-                          {step.description}
-                        </p>
-                      )}
-                      {step.estimated_time && (
-                        <div className="mt-2 flex items-center text-xs text-amber-400">
-                          <span>⏱️ {step.estimated_time}</span>
-                        </div>
-                      )}
-                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor={`step-${stepId}`}
+                      className={`text-sm font-medium leading-none cursor-pointer ${
+                        isCompleted ? 'line-through text-gray-500' : 'text-black dark:text-white'
+                      }`}
+                    >
+                      {step.title || `Step ${index + 1}`}
+                    </label>
+                    {step.description && (
+                      <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        {step.description}
+                      </p>
+                    )}
+                    {step.estimated_time && (
+                      <div className="mt-2 flex items-center text-xs text-amber-400">
+                        <span>⏱️ {step.estimated_time}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               );
