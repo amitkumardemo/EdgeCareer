@@ -9,27 +9,81 @@ if (!apiKey) {
 // Initialize the Google Generative AI with API key
 const genAI = new GoogleGenerativeAI(apiKey);
 
+/**
+ * Extracts JSON content from markdown code blocks or raw JSON content.
+ * @param {string} content - The content to parse
+ * @returns {Object|Array} The parsed JSON object or array
+ * @throws {Error} If content cannot be parsed as JSON
+ */
+
 async function parseAIResponse(content) {
-  if (!content) throw new Error("No content received from AI");
-  
+  if (!content || typeof content !== 'string') {
+    throw new Error("No valid content received from AI");
+  }
+
+  // Set a reasonable maximum input size to prevent DoS
+  const MAX_INPUT_LENGTH = 100000; // 100KB should be more than enough for JSON
+  if (content.length > MAX_INPUT_LENGTH) {
+    throw new Error(`Content exceeds maximum allowed length of ${MAX_INPUT_LENGTH} characters`);
+  }
+
+  // First try to parse the content directly
   try {
-    // Try to parse directly first
     return JSON.parse(content);
   } catch (e) {
-    // If direct parse fails, try to extract JSON from markdown code blocks
-    const match = content.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
-    if (match && match[1]) {
-      return JSON.parse(match[1].trim());
-    }
-    
-    // Try to find a JSON array in the content
-    const arrayMatch = content.match(/\[\s*\{[\s\S]*?\}\s*\]/);
-    if (arrayMatch && arrayMatch[0]) {
-      return JSON.parse(arrayMatch[0]);
+    // If direct parse fails, try to extract from markdown code blocks
+    const jsonContent = extractJsonFromMarkdown(content);
+    if (jsonContent) {
+      return jsonContent;
     }
     
     throw new Error("Could not parse AI response as JSON");
   }
+}
+
+/**
+ * Safely extracts JSON from markdown code blocks
+ * @param {string} content - The content containing markdown code blocks
+ * @returns {Object|Array|null} The parsed JSON or null if no valid JSON found
+ */
+function extractJsonFromMarkdown(content) {
+  const codeBlockPattern = /^```(?:json)?\s*([\s\S]*?[^\s])\s*$/gm;
+  const blocks = [];
+  let match;
+  
+  // Find all code blocks that might contain JSON
+  while ((match = codeBlockPattern.exec(content)) !== null) {
+    try {
+      const jsonContent = match[1].trim();
+      if (jsonContent) {
+        // Try to parse as JSON
+        return JSON.parse(jsonContent);
+      }
+    } catch (e) {
+      // If parsing fails, continue to next potential block
+      continue;
+    }
+  }
+  
+  // If no code blocks found, try to find a JSON object or array in the content
+  try {
+    // Look for JSON object
+    const objectMatch = content.match(/\{[\s\S]*?\}/);
+    if (objectMatch) {
+      return JSON.parse(objectMatch[0]);
+    }
+    
+    // Look for JSON array
+    const arrayMatch = content.match(/\[[\s\S]*?\]/);
+    if (arrayMatch) {
+      return JSON.parse(arrayMatch[0]);
+    }
+  } catch (e) {
+    // If parsing fails, return null
+    return null;
+  }
+  
+  return null;
 }
 
 export async function POST(req) {
