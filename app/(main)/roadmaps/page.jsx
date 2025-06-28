@@ -1,16 +1,22 @@
 "use client";
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Loader2 } from 'lucide-react';
+import { Loader2, BookOpen, LayoutDashboard } from 'lucide-react';
+import RoadmapWithProgress from '@/components/RoadmapWithProgress';
 
 export default function RoadmapPage() {
   const [topic, setTopic] = useState('');
   const [roadmap, setRoadmap] = useState([]);
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveStatus, setSaveStatus] = useState('');
   const [error, setError] = useState('');
+  const [showRoadmapViewer, setShowRoadmapViewer] = useState(false);
 
   const generateRoadmap = async (e) => {
     e?.preventDefault();
@@ -42,11 +48,34 @@ export default function RoadmapPage() {
     }
   };
 
+
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="text-4xl font-extrabold text-center mb-2 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-        Learning Path Generator
-      </h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-4xl font-extrabold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+          Learning Path Generator
+        </h1>
+        <div className="flex gap-2">
+          <Button
+            onClick={() => setShowRoadmapViewer(true)}
+            variant="outline"
+            className="flex items-center gap-2 border-gray-700 hover:bg-gray-800"
+            disabled={roadmap.length === 0}
+          >
+            <LayoutDashboard className="h-4 w-4" />
+            Track Progress
+          </Button>
+          <Button
+            onClick={() => router.push('/roadmaps/saved')}
+            variant="outline"
+            className="flex items-center gap-2 border-gray-700 hover:bg-gray-800"
+          >
+            <BookOpen className="h-4 w-4" />
+            Saved Roadmaps
+          </Button>
+        </div>
+      </div>
       <p className="text-lg text-gray-400 text-center mb-10">
         Enter a topic to generate a personalized learning roadmap
       </p>
@@ -86,9 +115,64 @@ export default function RoadmapPage() {
 
       {roadmap.length > 0 ? (
         <div className="mt-8">
-          <h2 className="text-2xl font-bold text-center mb-8 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-            Your Learning Path: {topic}
-          </h2>
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+              Your Learning Path: {topic}
+            </h2>
+            <Button
+              onClick={async () => {
+                setSaving(true);
+                setSaveStatus('');
+                try {
+                  const response = await fetch('/api/roadmaps', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      title: `Learning Path: ${topic}`,
+                      topic,
+                      description: `A personalized learning path for ${topic}`,
+                      steps: roadmap.map(step => ({
+                        title: step.title,
+                        description: step.description,
+                        estimated_time: step.estimated_time
+                      }))
+                    }),
+                  });
+
+                  if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to save roadmap');
+                  }
+
+                  const data = await response.json();
+                  setSaveStatus('Roadmap saved successfully!');
+                } catch (err) {
+                  console.error('Error saving roadmap:', err);
+                  setSaveStatus(err.message || 'Failed to save roadmap');
+                } finally {
+                  setSaving(false);
+                  // Clear the success message after 3 seconds
+                  setTimeout(() => setSaveStatus(''), 3000);
+                }
+              }}
+              disabled={saving || roadmap.length === 0}
+              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
+            >
+              {saving ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                'Save Roadmap'
+              )}
+            </Button>
+          </div>
+          {saveStatus && (
+            <div className={`mb-6 text-center text-sm ${saveStatus.includes('success') ? 'text-green-400' : 'text-red-400'}`}>
+              {saveStatus}
+            </div>
+          )}
           <div className="relative">
             <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-700"></div>
             {roadmap.map((step, index) => (
@@ -127,6 +211,14 @@ export default function RoadmapPage() {
         <div className="text-center py-12 text-gray-400">
           <p>Enter a topic above to generate your personalized learning roadmap</p>
         </div>
+      )}
+
+      {showRoadmapViewer && roadmap.length > 0 && (
+        <RoadmapWithProgress 
+          roadmap={roadmap} 
+          topic={topic} 
+          onClose={() => setShowRoadmapViewer(false)} 
+        />
       )}
     </div>
   );
