@@ -116,6 +116,17 @@ export default function RoadmapPage() {
                 setSaving(true);
                 setSaveStatus('');
                 try {
+                  console.log('Saving roadmap with data:', {
+                    title: `Learning Path: ${topic}`,
+                    topic,
+                    description: `A personalized learning path for ${topic}`,
+                    steps: roadmap.map(step => ({
+                      title: step.title,
+                      description: step.description || '',
+                      estimated_time: step.estimated_time || '1 week' // Default to 1 week if not specified
+                    }))
+                  });
+
                   const response = await fetch('/api/roadmaps', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -125,26 +136,34 @@ export default function RoadmapPage() {
                       description: `A personalized learning path for ${topic}`,
                       steps: roadmap.map(step => ({
                         title: step.title,
-                        description: step.description,
-                        estimated_time: step.estimated_time
+                        description: step.description || '',
+                        estimated_time: step.estimated_time || '1 week' // Default to 1 week if not specified
                       }))
                     }),
                   });
 
+                  const responseData = await response.json();
+                  console.log('Save response:', responseData);
+
                   if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Failed to save roadmap');
+                    throw new Error(responseData.error || 'Failed to save roadmap');
                   }
 
-                  const data = await response.json();
                   setSaveStatus('Roadmap saved successfully!');
+                  
+                  // Redirect to saved roadmaps after a short delay
+                  setTimeout(() => {
+                    router.push('/roadmaps/saved');
+                  }, 1000);
                 } catch (err) {
                   console.error('Error saving roadmap:', err);
-                  setSaveStatus(err.message || 'Failed to save roadmap');
+                  setSaveStatus(err.message || 'Failed to save roadmap. Please try again.');
                 } finally {
                   setSaving(false);
-                  // Clear the success message after 3 seconds
-                  setTimeout(() => setSaveStatus(''), 3000);
+                  // Clear the error message after 5 seconds
+                  if (saveStatus && saveStatus.includes('Failed')) {
+                    setTimeout(() => setSaveStatus(''), 5000);
+                  }
                 }
               }}
               disabled={saving || roadmap.length === 0}

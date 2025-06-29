@@ -37,42 +37,88 @@ export async function POST(req) {
     }
 
     // Create the roadmap with its steps in a transaction
-    const roadmap = await prisma.$transaction(async (prisma) => {
-      const newRoadmap = await prisma.roadmap.create({
-        data: {
-          userId: user.id,
-          title,
-          topic,
-          description,
-        },
+    let roadmap;
+    try {
+      roadmap = await prisma.$transaction(async (prisma) => {
+        const newRoadmap = await prisma.roadmap.create({
+          data: {
+            userId: user.id,
+            title,
+            topic,
+            description,
+          },
+        });
+
+        // Create steps for the roadmap
+        const roadmapSteps = await Promise.all(
+          steps.map((step, index) =>
+            prisma.roadmapStep.create({
+              data: {
+                roadmapId: newRoadmap.id,
+                title: step.title,
+                description: step.description || '', // Ensure description is never null
+                order: index + 1,
+                estimatedTime: step.estimated_time || null,
+              },
+            })
+          )
+        );
+
+        return {
+          ...newRoadmap,
+          steps: roadmapSteps,
+        };
       });
+    } catch (txError) {
+      // Safely log the error
+      if (txError && typeof txError === 'object') {
+        console.error('Transaction error:', {
+          message: txError.message,
+          name: txError.name,
+          stack: txError.stack,
+          code: txError.code
+        });
+      } else {
+        console.error('Transaction error occurred:', String(txError));
+      }
+      
+      // Ensure we have a proper error message
+      const errorMessage = txError && txError.message 
+        ? `Transaction failed: ${txError.message}`
+        : 'An unknown error occurred during the transaction';
+      
+      throw new Error(errorMessage);
+    }
 
-      // Create steps for the roadmap
-      const roadmapSteps = await Promise.all(
-        steps.map((step, index) =>
-          prisma.roadmapStep.create({
-            data: {
-              roadmapId: newRoadmap.id,
-              title: step.title,
-              description: step.description,
-              order: index + 1,
-              estimatedTime: step.estimated_time,
-            },
-          })
-        )
-      );
-
-      return {
-        ...newRoadmap,
-        steps: roadmapSteps,
-      };
-    });
-
+    if (!roadmap) {
+      throw new Error('Roadmap creation returned null');
+    }
+    
     return NextResponse.json(roadmap);
   } catch (error) {
-    console.error('Error saving roadmap:', error);
+    // Safely log the error
+    if (error && typeof error === 'object') {
+      console.error('Error saving roadmap:', {
+        message: error.message,
+        name: error.name,
+        stack: error.stack,
+        code: error.code
+      });
+    } else {
+      console.error('Error saving roadmap occurred:', String(error));
+    }
+    
+    // Ensure we have a safe error message
+    const errorMessage = 'Failed to save roadmap';
+    const errorDetails = process.env.NODE_ENV === 'development' 
+      ? (error && error.message ? error.message : 'Unknown error')
+      : undefined;
+      
     return NextResponse.json(
-      { error: 'Failed to save roadmap' },
+      { 
+        error: errorMessage,
+        details: errorDetails
+      },
       { status: 500 }
     );
   }
