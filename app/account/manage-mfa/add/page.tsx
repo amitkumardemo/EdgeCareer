@@ -5,7 +5,7 @@ import type { TOTPResource } from "@clerk/types";
 import Link from "next/link";
 import * as React from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { GenerateBackupCodes } from "../page";
+import { GenerateBackupCodes } from "@/components/GenerateBackupCodes";
 
 type AddTotpSteps = "add" | "verify" | "backupcodes" | "success";
 type DisplayFormat = "qr" | "uri";
