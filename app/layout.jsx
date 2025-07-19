@@ -2,11 +2,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
-import Header from "../components/Header";
+import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { dark } from "@clerk/themes";
 import Script from "next/script";
-import Footer from "../components/Footer";
+import Footer from "@/components/Footer";
 
 
 const inter = Inter({ subsets: ["latin"] });
