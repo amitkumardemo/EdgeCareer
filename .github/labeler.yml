@@ -1,0 +1,11 @@
+auth:
+  - "lib/auth/**/*"
+  - "middleware.ts"
+
+ui:
+  - "components/**/*"
+  - "pages/**/*"
+
+config:
+  - "*.json"
+  - ".github/**/*"
