@@ -6,6 +6,9 @@ import Link from "next/link";
 import * as React from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { GenerateBackupCodes } from "@/components/GenerateBackupCodes";
+import QRCode from "react-qr-code";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 type AddTotpSteps = "add" | "verify" | "backupcodes" | "success";
 type DisplayFormat = "qr" | "uri";
@@ -34,18 +37,28 @@ function AddTotpScreen({
       <p className="text-sm text-zinc-600 dark:text-zinc-400">
         Scan the QR code with your authenticator app or view the URI instead.
       </p>
-
-      {totp && displayFormat === "qr" && (
-        <div className="flex flex-col items-center gap-4">
-          <QRCodeSVG value={totp.uri || ""} size={200} />
-          <button
-            className="text-blue-500 hover:underline text-sm"
-            onClick={() => setDisplayFormat("uri")}
-          >
-            Use URI instead
-          </button>
-        </div>
-      )}
+      <div className="p-6 dark:bg-gray-900 rounded-xl shadow-lg">
+        {totp && displayFormat === "qr" && (
+          <div className="flex flex-col items-center gap-4">
+            <div className="bg-white p-4 rounded-lg shadow">
+              <QRCode
+                title="Multi-Factor-Auth"
+                value={totp.uri || ""}
+                bgColor="#ffffff"
+                fgColor="#000000"
+                level="H"
+                size={200}
+              />
+            </div>
+            <button
+              className="text-blue-500 hover:underline text-sm"
+              onClick={() => setDisplayFormat("uri")}
+            >
+              Use URI instead
+            </button>
+          </div>
+        )}
+      </div>
 
       {totp && displayFormat === "uri" && (
         <div className="space-y-2">
@@ -165,16 +178,30 @@ function BackupCodeScreen({
 }
 
 // ========== Final Step ==========
-function SuccessScreen() {
+ function SuccessScreen() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      router.push("/dashboard");
+    }, 3000); 
+
+    return () => clearTimeout(timeout);
+  }, [router]);
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold">TOTP Enabled 🎉</h2>
       <p className="text-sm text-zinc-600 dark:text-zinc-400">
         You’ve successfully added TOTP multi-factor authentication.
       </p>
+      <p className="text-xs text-zinc-500 dark:text-zinc-400">
+        Redirecting you to your dashboard...
+      </p>
     </div>
   );
 }
+
 
 // ========== Main Container ==========
 export default function AddMfaScreen() {
@@ -196,7 +223,7 @@ export default function AddMfaScreen() {
         href="/account/manage-mfa"
         className="mt-6 text-blue-500 hover:underline text-sm"
       >
-        ← Back to Manage MFA
+        {/* ← Back to Manage MFA */}
       </Link>
     </div>
   );
