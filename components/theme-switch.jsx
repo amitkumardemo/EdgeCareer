@@ -17,19 +17,23 @@ const ThemeSwitch = () => {
     return null; // Avoids hydration mismatch
   }
 
+  const iconClasses = "w-5 h-5 transition-colors duration-300";
+
   return theme === "dark" ? (
     <button
       onClick={() => setTheme("light")}
       className="flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-zinc-950 shadow-md hover:shadow-lg transition-shadow duration-300"
     >
-      <SunIcon />
+      {/* In dark mode, Sun icon is shown → use bright color */}
+      <SunIcon className={`${iconClasses} text-yellow-500`} />
     </button>
   ) : (
     <button
       onClick={() => setTheme("dark")}
       className="flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-zinc-950 shadow-md hover:shadow-lg transition-shadow duration-300"
     >
-      <MoonIcon />
+      {/* In light mode, Moon icon is shown → use dark or blue color */}
+      <MoonIcon className={`${iconClasses} text-blue-600`} />
     </button>
   );
 };
