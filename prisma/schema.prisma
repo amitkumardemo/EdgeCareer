@@ -27,6 +27,7 @@ model User {
   assessments   Assessment[]
   resume        Resume?
   coverLetter   CoverLetter[]
+  roadmaps      Roadmap[] // User's saved roadmaps
 }
 
 model Assessment {
@@ -96,4 +97,35 @@ model IndustryInsight {
   nextUpdate    DateTime  // Scheduled update time
 
   @@index([industry])
+}
+
+model Roadmap {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  title       String
+  topic       String
+  description String?   @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  steps       RoadmapStep[]
+
+  @@index([userId])
+}
+
+model RoadmapStep {
+  id          String    @id @default(cuid())
+  roadmapId   String
+  roadmap     Roadmap   @relation(fields: [roadmapId], references: [id], onDelete: Cascade)
+  title       String
+  description String    @db.Text
+  order       Int
+  estimatedTime String? // e.g., "2 weeks", "1 month"
+  resources   Json?     // Array of { title: string, url: string } or similar
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([roadmapId])
 }
