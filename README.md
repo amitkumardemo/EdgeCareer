@@ -33,6 +33,11 @@
   - [5. Run the Development Server](#-5-run-the-development-server)
   - [6. Start Contributing 💙](#-6-start-contributing-)
 - [✅Docker Setup](#docker-setup)
+![Contribution steps](./image.png)
+<p align="center">
+  <img src="./image.png" width="600" />
+</p>
+
 
 </details>
 

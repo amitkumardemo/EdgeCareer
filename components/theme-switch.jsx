@@ -1,10 +1,21 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
-const ThemSwitch = () => {
+const ThemeSwitch = () => {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Ensures rendering happens only after client mounts
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null; // Avoids hydration mismatch
+  }
 
   return theme === "dark" ? (
     <button
@@ -23,4 +34,4 @@ const ThemSwitch = () => {
   );
 };
 
-export default ThemSwitch;
+export default ThemeSwitch;
