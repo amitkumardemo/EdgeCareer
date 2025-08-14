@@ -268,7 +268,7 @@ export default function LandingPage() {
               threshold={0.1}
               rootMargin="-100px"
               textAlign="center"
-              onLetterAnimationComplete={() => { }}
+              onLetterAnimationComplete={() => {}}
             />
 
             <motion.div
@@ -300,7 +300,11 @@ export default function LandingPage() {
                     className="w-full h-full"
                     whileHover={{
                       scale: 1.04,
-                      transition: { duration: 0.2, type: "spring", stiffness: 300 }
+                      transition: {
+                        duration: 0.2,
+                        type: "spring",
+                        stiffness: 300,
+                      },
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -326,13 +330,11 @@ export default function LandingPage() {
                         <motion.div
                           className="absolute top-0 right-0 w-0 h-0 border-t-[80px] border-t-primary/20 border-l-[80px] border-l-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                           style={{
-                            clipPath: "polygon(100% 0, 0 0, 100% 100%)"
+                            clipPath: "polygon(100% 0, 0 0, 100% 100%)",
                           }}
                         />
 
-                        <motion.div
-                          className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-br from-primary/20 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:w-16 group-hover:h-16"
-                        />
+                        <motion.div className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-br from-primary/20 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:w-16 group-hover:h-16" />
 
                         <div className="flex flex-col items-center justify-between h-full relative z-10">
                           <div className="flex flex-col items-center">
@@ -349,7 +351,7 @@ export default function LandingPage() {
                               whileHover={{
                                 rotate: [0, -5, 5, -5, 0],
                                 scale: 1.1,
-                                transition: { duration: 0.6 }
+                                transition: { duration: 0.6 },
                               }}
                             >
                               {/* Pulsing ring effect */}
@@ -378,7 +380,7 @@ export default function LandingPage() {
                             <motion.h3
                               className="text-xl font-bold mb-3 text-gray-300 tracking-tight hover:text-white transition-colors duration-300"
                               whileHover={{
-                                textShadow: "0 0 8px rgba(124, 58, 237, 0.6)"
+                                textShadow: "0 0 8px rgba(124, 58, 237, 0.6)",
                               }}
                             >
                               {feature.title}
@@ -404,8 +406,8 @@ export default function LandingPage() {
                                 transition: {
                                   type: "spring",
                                   stiffness: 400,
-                                  damping: 10
-                                }
+                                  damping: 10,
+                                },
                               }}
                               whileTap={{ scale: 0.95 }}
                             >
@@ -427,7 +429,12 @@ export default function LandingPage() {
                                       viewBox="0 0 24 24"
                                       stroke="currentColor"
                                     >
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                                      />
                                     </motion.svg>
                                   </span>
 
@@ -448,12 +455,15 @@ export default function LandingPage() {
                             className="w-12 h-0.5 bg-gradient-to-r from-transparent via-primary/40 to-transparent rounded-full absolute bottom-0"
                             initial={{ width: 0, opacity: 0 }}
                             whileInView={{ width: "40%", opacity: 1 }}
-                            transition={{ delay: index * 0.1 + 0.5, duration: 0.5 }}
+                            transition={{
+                              delay: index * 0.1 + 0.5,
+                              duration: 0.5,
+                            }}
                             viewport={{ once: true }}
                             whileHover={{
                               width: "60%",
                               backgroundColor: "rgba(124, 58, 237, 0.6)",
-                              transition: { duration: 0.3 }
+                              transition: { duration: 0.3 },
                             }}
                           />
                         </div>
@@ -462,13 +472,31 @@ export default function LandingPage() {
                         <motion.div
                           className="absolute top-4 left-4 w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-80"
                           animate={[
-                            { scale: [0, 1], opacity: [0, 0.8, 0], transition: { duration: 1.5, delay: 0.2, repeat: Infinity, repeatDelay: 3 } },
+                            {
+                              scale: [0, 1],
+                              opacity: [0, 0.8, 0],
+                              transition: {
+                                duration: 1.5,
+                                delay: 0.2,
+                                repeat: Infinity,
+                                repeatDelay: 3,
+                              },
+                            },
                           ]}
                         />
                         <motion.div
                           className="absolute bottom-6 right-8 w-1.5 h-1.5 bg-yellow-400 rounded-full opacity-0 group-hover:opacity-60"
                           animate={[
-                            { scale: [0, 1], opacity: [0, 0.6, 0], transition: { duration: 1.5, delay: 0.8, repeat: Infinity, repeatDelay: 2.5 } },
+                            {
+                              scale: [0, 1],
+                              opacity: [0, 0.6, 0],
+                              transition: {
+                                duration: 1.5,
+                                delay: 0.8,
+                                repeat: Infinity,
+                                repeatDelay: 2.5,
+                              },
+                            },
                           ]}
                         />
                       </CardContent>
@@ -536,31 +564,31 @@ export default function LandingPage() {
           className="absolute -z-10 w-72 h-72 rounded-full bg-primary/5 blur-[80px] opacity-70 top-20 right-0" // Changed from -right-20 to right-0
           animate={{
             x: [0, 20, 0], // Reduced movement range from 30 to 20
-            opacity: [0.5, 0.7, 0.5]
+            opacity: [0.5, 0.7, 0.5],
           }}
           transition={{
             duration: 8,
             repeat: Infinity,
-            repeatType: "reverse"
+            repeatType: "reverse",
           }}
         />
         <motion.div
           className="absolute -z-10 w-96 h-96 rounded-full bg-secondary/5 blur-[100px] opacity-60 bottom-20 left-0" // Changed from -left-20 to left-0
           animate={{
             x: [0, -20, 0], // Reduced movement range from -30 to -20
-            opacity: [0.4, 0.6, 0.4]
+            opacity: [0.4, 0.6, 0.4],
           }}
           transition={{
             duration: 10,
             repeat: Infinity,
             repeatType: "reverse",
-            delay: 1
+            delay: 1,
           }}
         />
 
         <div className="container mx-auto px-4 md:px-6 relative pt-10 pb-10">
           <div className="text-center max-w-3xl mx-auto mb-6">
-          <SplitText
+            <SplitText
               text="How it Works"
               className="text-5xl font-semibold text-center tracking-tighter mx-auto mr-auto mb-1"
               delay={100}
@@ -572,7 +600,7 @@ export default function LandingPage() {
               threshold={0.1}
               rootMargin="-100px"
               textAlign="center"
-              onLetterAnimationComplete={() => { }}
+              onLetterAnimationComplete={() => {}}
             />
             <ShinyText
               text="Four simple steps to accelerate your career growth with AI-powered guidance"
@@ -611,7 +639,7 @@ export default function LandingPage() {
                     duration: 0.6,
                     delay: index * 0.15,
                     type: "spring",
-                    stiffness: 50
+                    stiffness: 50,
                   }}
                   viewport={{ once: true, margin: "-100px" }}
                   className="flex flex-col items-center text-center space-y-4 relative"
@@ -626,7 +654,7 @@ export default function LandingPage() {
                       delay: 0.2 + index * 0.15,
                       duration: 0.5,
                       type: "spring",
-                      stiffness: 100
+                      stiffness: 100,
                     }}
                     viewport={{ once: true }}
                   >
@@ -639,13 +667,13 @@ export default function LandingPage() {
                     whileHover={{
                       scale: 1.15,
                       boxShadow: "0 0 25px rgba(124, 58, 237, 0.4)",
-                      borderColor: "rgba(124, 58, 237, 0.5)"
+                      borderColor: "rgba(124, 58, 237, 0.5)",
                     }}
                     whileTap={{ scale: 0.95 }}
                     transition={{
                       type: "spring",
                       stiffness: 400,
-                      damping: 15
+                      damping: 15,
                     }}
                   >
                     {/* Pulse effect */}
@@ -654,13 +682,13 @@ export default function LandingPage() {
                       animate={{
                         boxShadow: [
                           "0 0 0 0 rgba(124, 58, 237, 0.4)",
-                          "0 0 0 10px rgba(124, 58, 237, 0)"
+                          "0 0 0 10px rgba(124, 58, 237, 0)",
                         ],
                       }}
                       transition={{
                         duration: 2.5,
                         repeat: Infinity,
-                        delay: index * 0.5
+                        delay: index * 0.5,
                       }}
                     />
 
@@ -673,7 +701,6 @@ export default function LandingPage() {
                     >
                       {item.icon}
                     </motion.div>
-
                   </motion.div>
 
                   {/* Content */}
@@ -743,7 +770,10 @@ export default function LandingPage() {
                           strokeWidth="1"
                           initial={{ opacity: 0 }}
                           whileInView={{ opacity: 1 }}
-                          transition={{ delay: 1.5 + index * 0.3, duration: 0.3 }}
+                          transition={{
+                            delay: 1.5 + index * 0.3,
+                            duration: 0.3,
+                          }}
                           viewport={{ once: true }}
                         />
                       </motion.svg>
@@ -777,7 +807,6 @@ export default function LandingPage() {
                     transition={{ duration: 0.3 }}
                   />
                 </Button>
-
               </Link>
 
               {/* User interaction hint */}
@@ -809,9 +838,7 @@ export default function LandingPage() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         />
-        <motion.div
-          className="absolute -z-10 w-full h-1/2 bottom-0 bg-gradient-to-t from-background/80 to-transparent"
-        />
+        <motion.div className="absolute -z-10 w-full h-1/2 bottom-0 bg-gradient-to-t from-background/80 to-transparent" />
 
         <div className="container mx-auto px-4 md:px-6 flex justify-center items-center flex-col">
           <SplitText
@@ -909,29 +936,40 @@ export default function LandingPage() {
           viewport={{ once: true }}
         >
           {/* Animated particles */}
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full bg-white/10"
-              style={{
-                width: 10 + Math.random() * 20,
-                height: 10 + Math.random() * 20,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, -100 - Math.random() * 100],
-                x: [0, (Math.random() - 0.5) * 50],
-                opacity: [0, 0.7, 0],
-                scale: [0, 1 + Math.random(), 0],
-              }}
-              transition={{
-                duration: 4 + Math.random() * 3,
-                repeat: Infinity,
-                delay: i * 0.7,
-              }}
-            />
-          ))}
+          {[...Array(6)].map((_, i) => {
+            const width = 10 + ((i * 37) % 20); // deterministic pseudorandom
+            const height = 10 + ((i * 53) % 20);
+            const left = `${(i * 61) % 100}%`;
+            const top = `${(i * 29) % 100}%`;
+            const y = [0, -100 - ((i * 71) % 100)];
+            const x = [0, (((i * 83) % 100) - 50) * 0.5];
+            const scale = [0, 1 + ((i * 47) % 100) / 100, 0];
+            const duration = 4 + ((i * 59) % 3);
+
+            return (
+              <motion.div
+                key={i}
+                className="absolute rounded-full bg-white/10"
+                style={{
+                  width,
+                  height,
+                  left,
+                  top,
+                }}
+                animate={{
+                  y,
+                  x,
+                  opacity: [0, 0.7, 0],
+                  scale,
+                }}
+                transition={{
+                  duration,
+                  repeat: Infinity,
+                  delay: i * 0.7,
+                }}
+              />
+            );
+          })}
 
           <motion.div
             className="flex flex-col items-center justify-center space-y-4 text-center max-w-3xl mx-auto relative z-10"

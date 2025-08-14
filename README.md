@@ -22,17 +22,19 @@
 <details>
 <summary><strong>Table of Contents</strong></summary>
 
-- [🌟 Key Features](#-key-features)
-- [🚀 Tech Stack](#-tech-stack)
-  - [Make sure to create a `.env` file with following variables](#make-sure-to-create-a-env-file-with-following-variables--)
-- [🧩 Getting Started – Step-by-Step Setup](#-getting-started--step-by-step-setup)
-  - [1. Fork the Repository ⭐ & Mark as a Star](#-1-fork-the-repository---mark-as-a-star)
-  - [2. Clone the Forked Repo](#-2-clone-the-forked-repo)
-  - [3. Install Dependencies](#-3-install-dependencies)
-  - [4. Set Up the Database](#-4-set-up-the-database)
-  - [5. Run the Development Server](#-5-run-the-development-server)
-  - [6. Start Contributing 💙](#-6-start-contributing-)
-- [✅Docker Setup](#docker-setup)
+- [🚀 EdgeCareer – AI-Powered Career Coach](#-edgecareer--ai-powered-career-coach)
+  - [🌟 Key Features](#-key-features)
+  - [🚀 Tech Stack](#-tech-stack)
+    - [Make sure to create a `.env` file with following variables -](#make-sure-to-create-a-env-file-with-following-variables--)
+  - [🧩 Getting Started – Step-by-Step Setup](#-getting-started--step-by-step-setup)
+    - [✅ 1. Fork the Repository ⭐ \& Mark as a Star](#-1-fork-the-repository---mark-as-a-star)
+    - [✅ 2. Clone the Forked Repo](#-2-clone-the-forked-repo)
+    - [✅ 3. Install Dependencies](#-3-install-dependencies)
+    - [✅ 4. Set Up the Database](#-4-set-up-the-database)
+    - [✅ 5. Run the Development Server](#-5-run-the-development-server)
+    - [✅ 6. Enable MFA](#-6-enable-mfa)
+    - [✅ 7. Start Contributing 💙](#-7-start-contributing-)
+  - [Docker Setup✅](#docker-setup)
 
 </details>
 
@@ -136,10 +138,15 @@ npx prisma studio
 ```
 npm run dev
 ```
+---
+### ✅ 6. Enable MFA  
+In the Clerk Dashboard, navigate to the Multi-factor page.
+
+Toggle on the MFA strategies you would like to enable.
 
 ---
 
-### ✅ 6. Start Contributing 💙
+### ✅ 7. Start Contributing 💙
 Browse the issues labeled Beginner, Intermediate, or Advanced
 
 Pick one and start solving!

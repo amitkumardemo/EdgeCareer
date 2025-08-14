@@ -1,6 +1,8 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
+const isMFARoute = createRouteMatcher(["/account/manage-mfa/add(.*)"]);
+const isSignInRoute = createRouteMatcher(["/sign-in(.*)"]);
 const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
   "/resume(.*)",
@@ -10,11 +12,22 @@ const isProtectedRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
-  const { userId } = await auth();
+  const { userId, sessionClaims, redirectToSignIn } = await auth();
+
+  if (userId && isSignInRoute(req)) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
 
   if (!userId && isProtectedRoute(req)) {
-    const { redirectToSignIn } = await auth();
     return redirectToSignIn();
+  }
+
+  if (userId && !isMFARoute(req)) {
+    if (sessionClaims?.isMfa === undefined) {
+      console.error("You need to add the `isMfa` claim to your session token.");
+    } else if (sessionClaims?.isMfa === false) {
+      return NextResponse.redirect(new URL("/account/manage-mfa/add", req.url));
+    }
   }
 
   return NextResponse.next();
@@ -22,9 +35,7 @@ export default clerkMiddleware(async (auth, req) => {
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
     "/(api|trpc)(.*)",
   ],
 };

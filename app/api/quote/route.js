@@ -1,7 +1,10 @@
 // app/api/quote/route.js
 export async function GET() {
   try {
-    const res = await fetch('https://zenquotes.io/api/today', { cache: "no-store" });
+    const res = await fetch(
+      "https://cors-anywhere.herokuapp.com/https://zenquotes.io/api/today",
+      { cache: "no-store" }
+    );
     const data = await res.json();
 
     return new Response(JSON.stringify(data[0]), {

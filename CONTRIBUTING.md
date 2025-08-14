@@ -4,8 +4,7 @@
 
 Welcome to **EdgeCareer** — an open-source project dedicated to empowering users with tools and insights for career advancement. We’re excited to have your support in building a smarter, more impactful platform!
 
-Whether you're a developer, designer, writer, or tester — **you can make a difference here**. 🛠️💡
-
+Whether you're a developer, designer, writer, or tester — **you can make a difference here**. 🛠️💡 
 ---
 
 ## 📜 Code of Conduct
