@@ -22,6 +22,7 @@ export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [Loading,setLoading] = useState(false);
   const quizCompleted=false;
 
   const {
@@ -36,6 +37,11 @@ export default function Quiz() {
     data: resultData,
     setData: setResultData,
   } = useFetch(saveQuizResult);
+
+  useEffect(() => {
+    if(generatingQuiz) setLoading(true)
+    else setLoading(false)
+  },[generatingQuiz])
 
   useEffect(() => {
     if (quizData) {
@@ -87,8 +93,13 @@ export default function Quiz() {
     setResultData(null);
   };
 
-  if (generatingQuiz) {
-    return <BarLoader className="mt-4" width={"100%"} color="gray" />;
+  if (Loading) {
+    return (
+    <div className="flex flex-col items-center justify-center h-[70vh] space-y-4 text-center">
+      <BarLoader color="#64748b" width={200} height={4} />
+      <p className="text-muted-foreground text-md animate-pulse">Generating industry-specific quiz for you...</p>
+    </div>
+  );
   }
 
   // Show results if quiz is completed

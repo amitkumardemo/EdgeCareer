@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -27,8 +27,9 @@ const schema = z.object({
 });
 
 export default function CoverLetterGenerator() {
+  const [Loading,setLoading] = useState(false);
   const router = useRouter();
-
+  
   const {
     register,
     handleSubmit,
@@ -37,6 +38,8 @@ export default function CoverLetterGenerator() {
   } = useForm({
     resolver: zodResolver(schema),
   });
+
+  
 
   const {
     loading: generating,
@@ -55,6 +58,10 @@ export default function CoverLetterGenerator() {
   };
 
   useEffect(() => {
+    if(generating) setLoading(true);
+  },[generating])
+
+  useEffect(() => {
     if (generatedLetter) {
       console.log("✅ Got letter:", generatedLetter);
       toast.success("Cover letter generated!");
@@ -65,13 +72,21 @@ export default function CoverLetterGenerator() {
 
   return (
     <div className="space-y-6">
-      <Card>
+    
+      <div className={`${Loading ? "flex flex-col" : "hidden"}  items-center justify-center min-h-[40vh] text-center space-y-4`}>
+          <div className="w-12 h-12 border-4 border-t-transparent border-slate-400 rounded-full animate-spin" />
+          <p className="text-lg text-slate-100 font-medium animate-pulse">
+            Crafting your perfect cover letter…
+          </p>
+        </div>
+    
+      <Card className={`${Loading ? "hidden" : ""}`}>
         <CardHeader>
           <CardTitle>Generate Cover Letter</CardTitle>
           <CardDescription>Fill the fields and click submit</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label>Full Name</Label>
@@ -110,19 +125,16 @@ export default function CoverLetterGenerator() {
 
             <div className="flex justify-end">
               <Button type="submit" disabled={generating}>
-                {generating ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Generating...
-                  </>
-                ) : (
-                  "Generate Cover Letter"
-                )}
+                "Generate Cover Letter"
               </Button>
             </div>
           </form>
+          
+          
         </CardContent>
       </Card>
+      
+      
     </div>
   );
 }

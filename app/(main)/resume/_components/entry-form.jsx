@@ -30,6 +30,7 @@ const formatDisplayDate = (dateString) => {
 
 export function EntryForm({ type, entries, onChange }) {
   const [isAdding, setIsAdding] = useState(false);
+  const [isLoading,setisLoading] = useState(false);
 
   const {
     register,
@@ -86,8 +87,14 @@ export function EntryForm({ type, entries, onChange }) {
     if (improveError) {
       toast.error(improveError.message || "Failed to improve description");
     }
+    
   }, [improvedContent, improveError, isImproving, setValue]);
 
+  useEffect(() => {
+    if(isImproving) setisLoading(true);
+    else setisLoading(false);  
+  },[isImproving])
+  
   // Replace handleImproveDescription with this
   const handleImproveDescription = async () => {
     const description = watch("description");
@@ -228,7 +235,7 @@ export function EntryForm({ type, entries, onChange }) {
               onClick={handleImproveDescription}
               disabled={isImproving || !watch("description")}
             >
-              {isImproving ? (
+              {isLoading ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Improving...
