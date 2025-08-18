@@ -1,13 +1,15 @@
 import Link from "next/link";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { MailIcon } from "lucide-react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="text-black dark:text-gray-300 border-t border-gray-200 dark:border-gray-800 pt-14 pb-10 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 text-sm">
+    <footer className="bg-[#fafafa] dark:bg-gray-900 text-black dark:text-gray-300 border-t border-gray-200 dark:border-gray-800 pt-14 pb-10 px-4 md:px-8">
+      <div className="max-w-4xl mx-auto flex flex-col gap-10 text-sm">
+        
         {/* Logo and Tagline */}
-        <div className="col-span-1">
-          <div className="flex items-center gap-2 mb-4">
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
             <img src="/skill.png" alt="EdgeCareer Logo" className="h-6 w-auto" />
             <span className="text-xl md:text-2xl font-extrabold tracking-wide text-black dark:text-white">
               EdgeCareer
@@ -18,9 +20,9 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Navigation */}
-        <div>
-          <h3 className="text-xl md:text-2xl font-bold mb-4 text-black dark:text-white border-b border-black/10 dark:border-white/20 pb-1">
+        {/* Explore */}
+        <div className="text-center">
+          <h3 className="text-xl md:text-2xl font-bold mb-4 text-black dark:text-white border-b border-black/10 dark:border-white/20 pb-1 inline-block">
             Explore
           </h3>
           <ul className="space-y-2">
@@ -32,8 +34,8 @@ export default function Footer() {
         </div>
 
         {/* Resources */}
-        <div>
-          <h3 className="text-xl md:text-2xl font-bold mb-4 text-black dark:text-white border-b border-black/10 dark:border-white/20 pb-1">
+        <div className="text-center">
+          <h3 className="text-xl md:text-2xl font-bold mb-4 text-black dark:text-white border-b border-black/10 dark:border-white/20 pb-1 inline-block">
             Resources
           </h3>
           <ul className="space-y-2">
@@ -45,33 +47,32 @@ export default function Footer() {
         </div>
 
         {/* Newsletter & Social */}
-        <div>
+        <div className="text-center">
           <h3 className="text-xl md:text-2xl font-bold mb-4 text-black dark:text-white">Stay Updated</h3>
-          <form className="flex flex-col gap-3">
+          <form className="flex flex-col items-center gap-3">
             <input
               type="email"
               placeholder="Your email"
-              className="bg-gray-100 dark:bg-gray-800 text-black dark:text-white 
+              className="bg-white dark:bg-gray-800 text-black dark:text-white 
              px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 
-             focus:outline-none focus:ring-3 focus:ring-primary transition-colors"
+             focus:outline-none focus:ring-3 focus:ring-primary transition-colors w-full max-w-sm"
             />
-
             <button
               type="submit"
-              className="bg-primary hover:bg-primary/90 text-white py-2 rounded-md transition dark:text-black"
+              className="bg-primary hover:bg-primary/90 text-white py-2 px-6 rounded-md transition dark:text-black"
             >
               Subscribe
             </button>
           </form>
 
-          <div className="flex gap-4 mt-6">
+          <div className="flex justify-center gap-4 mt-6">
             <a
               href="https://github.com/amitkumardemo/EdgeCareer"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
             >
-              <Github className="h-6 w-6 hover:scale-110 transition-transform" />
+              <FaGithub className="h-6 w-6 hover:scale-110 transition-transform" />
             </a>
             <a
               href="https://www.linkedin.com/in/amit-kumar-686196225/"
@@ -79,13 +80,13 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
             >
-              <Linkedin className="h-6 w-6 hover:scale-110 transition-transform" />
+              <FaLinkedin className="h-6 w-6 hover:scale-110 transition-transform" />
             </a>
             <a
               href="mailto:amitk25783@gmail.com"
               className="hover:text-primary transition-colors"
             >
-              <Mail className="h-6 w-6 hover:scale-110 transition-transform" />
+              <MailIcon className="h-6 w-6 hover:scale-110 transition-transform" />
             </a>
           </div>
         </div>
