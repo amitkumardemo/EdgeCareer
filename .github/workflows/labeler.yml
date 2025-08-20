@@ -25,3 +25,9 @@ bug:
   - '**/*.jsx'
   - '**/*.mjs'
   - '**/*.ts'
+
+feature:
+  - app/career-guidance/*
+  - app/lib/aiCareerGuidance.js
+enhancement:
+  - changed-files:*.js
