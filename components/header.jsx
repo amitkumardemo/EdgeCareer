@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { BUTTONS_MENUS } from "@/lib/constants";
 import {
@@ -8,8 +8,6 @@ import {
   GraduationCap,
   ChevronDown,
   StarsIcon,
-  MoonIcon,
-  SunIcon,
 } from "lucide-react";
 
 import Link from "next/link";
@@ -22,16 +20,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { checkUser } from "@/lib/checkUser";
-import { useTheme } from "next-themes";
 import ThemSwitch from "./theme-switch";
 
+import { FaBars, FaTimes } from "react-icons/fa";
 
 export default async function Header() {
   await checkUser();
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
+        {/* Logo */}
         <Link href="/">
           <Image
             src={"/skill.png"}
@@ -42,8 +43,8 @@ export default async function Header() {
           />
         </Link>
 
-        {/* Action Buttons */}
-        <div className="flex items-center space-x-2 md:space-x-4">
+        {/* Desktop Action Buttons */}
+        <div className="hidden md:flex items-center space-x-2 md:space-x-4">
           <SignedIn>
             <Link href="/dashboard">
               <Button
@@ -75,10 +76,7 @@ export default async function Header() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link
-                    href="/ai-cover-letter"
-                    className="flex items-center gap-2"
-                  >
+                  <Link href="/ai-cover-letter" className="flex items-center gap-2">
                     <PenBox className="h-4 w-4" />
                     {BUTTONS_MENUS.COVER_LETTER}
                   </Link>
@@ -113,7 +111,66 @@ export default async function Header() {
           </SignedIn>
           <ThemSwitch />
         </div>
+
+        {/* Mobile Menu Toggle */}
+        <div className="md:hidden flex items-center">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="text-gray-700 p-2"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
+          </button>
+        </div>
       </nav>
+
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden bg-background border-t border-gray-200 shadow-md transition-all ${
+          mobileMenuOpen ? "block" : "hidden"
+        }`}
+      >
+        <div className="flex flex-col p-4 space-y-3">
+          <SignedIn>
+            <Link href="/dashboard">
+              <Button variant="outline" className="w-full justify-start">
+                <LayoutDashboard className="h-4 w-4 mr-2" />
+                {BUTTONS_MENUS.DASHBOARD_INSIGHTS}
+              </Button>
+            </Link>
+
+            {/* Mobile Growth Tools Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className="w-full flex items-center justify-between">
+                  <span>{BUTTONS_MENUS.GROWTH_TOOLS}</span>
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-full">
+                <DropdownMenuItem asChild>
+                  <Link href="/resume">{BUTTONS_MENUS.BUILD_RESUME}</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/ai-cover-letter">{BUTTONS_MENUS.COVER_LETTER}</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/interview">{BUTTONS_MENUS.INTERVIEW_PREP}</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SignedIn>
+
+          <SignedOut>
+            <SignInButton>
+              <Button variant="outline" className="w-full">
+                {BUTTONS_MENUS.SIGN_IN}
+              </Button>
+            </SignInButton>
+          </SignedOut>
+        </div>
+      </div>
     </header>
   );
 }
+
