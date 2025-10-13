@@ -73,6 +73,10 @@ const OnboardingForm = ({ industries }) => {
     }
   }, [updateResult, updateLoading]);
 
+  useEffect(() => {
+    setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }, []);
+
   const watchIndustry = watch("industry");
 
   return (
