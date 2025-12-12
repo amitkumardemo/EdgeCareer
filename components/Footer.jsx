@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Github, Linkedin, Mail } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -8,13 +9,19 @@ export default function Footer() {
         {/* Logo and Tagline */}
         <div className="col-span-1">
           <div className="flex items-center gap-2 mb-4">
-            <img src="/skill.png" alt="EdgeCareer Logo" className="h-6 w-auto" />
+            <Image
+              src="/skill.png"
+              alt="EdgeCareer Logo"
+              width={160}
+              height={48}
+              className="h-8 w-auto object-contain"
+            />
             <span className="text-xl md:text-2xl font-extrabold tracking-wide text-black dark:text-white">
               EdgeCareer
             </span>
           </div>
           <p className="text-gray-600 dark:text-gray-400">
-            Your AI-powered assistant for jobs, resumes, mock interviews, and beyond.
+            Your AI-powered assistant for job search, resume optimization, mock interviews, and career growth.
           </p>
         </div>
 
@@ -92,7 +99,7 @@ export default function Footer() {
       </div>
 
       <div className="text-center text-gray-500 dark:text-gray-400 text-xs mt-10">
-        © {new Date().getFullYear()} EdgeCareer. Built with 💡 by Edge Career.
+        &copy; {new Date().getFullYear()} EdgeCareer. Built with &#x1F4A1; by EdgeCareer.
       </div>
     </footer>
   );
