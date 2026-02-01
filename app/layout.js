@@ -12,7 +12,7 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "EdgeCareer - Your AI-Powered Career Assistant",
+  title: "MENTORx - Your AI-Powered Career Assistant",
   description:
     "Your AI-powered assistant for job search, resume optimization, mock interviews, and career growth.",
     icons: {
@@ -36,21 +36,21 @@ export default function RootLayout({ children }) {
             name="keywords"
             content="AI career assistant, job search, resume optimization, mock interviews, industry insights, career growth, AI interview prep, job application tools"
           />
-          <meta name="author" content="EdgeCareer" />
+          <meta name="author" content="MENTORx" />
           <meta name="robots" content="index, follow" />
 
           {/* Open Graph Meta Tags */}
           <meta property="og:title" content={metadata.title} />
           <meta property="og:description" content={metadata.description} />
           <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://edgecareer.com" />
-          <meta property="og:image" content="https://edgecareer.com/og-image.png" />
+          <meta property="og:url" content="https://mentorx.com" />
+          <meta property="og:image" content="https://mentorx.com/og-image.png" />
 
           {/* Twitter Card Meta Tags */}
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={metadata.title} />
           <meta name="twitter:description" content={metadata.description} />
-          <meta name="twitter:image" content="https://edgecareer.com/og-image.png" />
+          <meta name="twitter:image" content="https://mentorx.com/og-image.png" />
         </head>
         <body className={`${inter.className}`} >
           <ThemeProvider

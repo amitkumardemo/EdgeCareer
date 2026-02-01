@@ -2,7 +2,7 @@
 
 ## 📦 Supported Versions
 
-We release updates and patches for the latest version of EdgeCareer. Older versions may not receive security updates.
+We release updates and patches for the latest version of MENTORx. Older versions may not receive security updates.
 
 | Version | Supported          |
 |---------|--------------------|
@@ -11,7 +11,7 @@ We release updates and patches for the latest version of EdgeCareer. Older versi
 
 ## 🚨 Reporting a Vulnerability
 
-We take security seriously. If you discover a vulnerability in the EdgeCareer repository, please follow the steps below:
+We take security seriously. If you discover a vulnerability in the MENTORx repository, please follow the steps below:
 
 1. **Do not** create a public issue. Instead, report it privately.
 2. Instead, report it discreetly by emailing the maintainer.
@@ -27,7 +27,7 @@ Once a vulnerability is confirmed and patched, we will publish a summary in the 
 
 ## ✅ Security Best Practices
 
-If you're deploying or contributing to EdgeCareer:
+If you're deploying or contributing to MENTORx:
 - Keep your dependencies updated.
 - Do not expose `.env` or sensitive configuration files.
 - Sanitize and validate all user inputs if modifying backend logic.
@@ -40,4 +40,4 @@ If you're deploying or contributing to EdgeCareer:
 - [GitHub Security Best Practices](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)
 ---
 
-🙏 Thank you for helping keep **EdgeCareer** safe for everyone!
+🙏 Thank you for helping keep **MENTORx** safe for everyone!

@@ -8,13 +8,13 @@ export default function Footer() {
         {/* Logo and Tagline */}
         <div className="col-span-1">
           <div className="flex items-center gap-2 mb-4">
-            <img src="/skill.png" alt="EdgeCareer Logo" className="h-6 w-auto" />
+            <img src="/Mentor1.png" alt="MENTORx Logo" className="h-6 w-auto" />
             <span className="text-xl md:text-2xl font-extrabold tracking-wide text-black dark:text-white">
-              EdgeCareer
+              MENTORx
             </span>
           </div>
           <p className="text-gray-600 dark:text-gray-400">
-            Your AI-powered assistant for jobs, resumes, mock interviews, and beyond.
+            AI assistant for jobs, resumes, mock interviews, and career growth.
           </p>
         </div>
 
@@ -25,9 +25,9 @@ export default function Footer() {
           </h3>
           <ul className="space-y-2">
             <li><Link href="/dashboard" className="hover:text-primary transition">Dashboard</Link></li>
-            <li><Link href="/resume" className="hover:text-primary transition">Resume Builder</Link></li>
+            <li><Link href="/resume" className="hover:text-primary transition">Resume Creator</Link></li>
             <li><Link href="/interview" className="hover:text-primary transition">Mock Interviews</Link></li>
-            <li><Link href="/ai-cover-letter" className="hover:text-primary transition">AI Cover Letter</Link></li>
+            <li><Link href="/ai-cover-letter" className="hover:text-primary transition">Cover Letter</Link></li>
           </ul>
         </div>
 
@@ -66,7 +66,7 @@ export default function Footer() {
 
           <div className="flex gap-4 mt-6">
             <a
-              href="https://github.com/amitkumardemo/EdgeCareer"
+              href="https://github.com/ashutosh936/MENTORx"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
@@ -74,7 +74,7 @@ export default function Footer() {
               <Github className="h-6 w-6 hover:scale-110 transition-transform" />
             </a>
             <a
-              href="https://www.linkedin.com/in/amit-kumar-686196225/"
+              href="https://www.linkedin.com/in/ashu37/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
@@ -82,7 +82,7 @@ export default function Footer() {
               <Linkedin className="h-6 w-6 hover:scale-110 transition-transform" />
             </a>
             <a
-              href="mailto:amitk25783@gmail.com"
+              href="mailto:skygennetsis14@gmail.com"
               className="hover:text-primary transition-colors"
             >
               <Mail className="h-6 w-6 hover:scale-110 transition-transform" />
@@ -92,7 +92,7 @@ export default function Footer() {
       </div>
 
       <div className="text-center text-gray-500 dark:text-gray-400 text-xs mt-10">
-        © {new Date().getFullYear()} EdgeCareer. Built with 💡 by Edge Career.
+        © {new Date().getFullYear()} MENTORx. Built with 💡 by MENTORx.
       </div>
     </footer>
   );

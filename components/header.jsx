@@ -8,8 +8,6 @@ import {
   GraduationCap,
   ChevronDown,
   StarsIcon,
-  MoonIcon,
-  SunIcon,
 } from "lucide-react";
 
 import Link from "next/link";
@@ -22,7 +20,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { checkUser } from "@/lib/checkUser";
-import { useTheme } from "next-themes";
 import ThemSwitch from "./theme-switch";
 
 
@@ -34,8 +31,8 @@ export default async function Header() {
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/">
           <Image
-            src={"/skill.png"}
-            alt="EdgeCareer Logo"
+            src={"/Mentor1.png"}
+            alt="MENTORx Logo"
             width={200}
             height={60}
             className="h-12 py-1 w-auto object-contain"

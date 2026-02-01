@@ -1,8 +1,8 @@
 ---
 
-# 🎯 Contributing to EdgeCareer
+# 🎯 Contributing to MENTORx
 
-Welcome to **EdgeCareer** — an open-source project dedicated to empowering users with tools and insights for career advancement. We’re excited to have your support in building a smarter, more impactful platform!
+Welcome to **MENTORx** — an open-source project dedicated to empowering users with tools and insights for career advancement. We're excited to have your support in building a smarter, more impactful platform!
 
 Whether you're a developer, designer, writer, or tester — **you can make a difference here**. 🛠️💡
 
@@ -16,7 +16,7 @@ To ensure a positive experience for everyone, please read and follow our [Code o
 
 ## 🚀 How You Can Contribute
 
-There are many meaningful ways to contribute to EdgeCareer:
+There are many meaningful ways to contribute to MENTORx:
 
 * 🐛 Fix bugs or issues
 * ✨ Add new features or tools
@@ -38,7 +38,7 @@ Use the **Fork** button in the top-right to create a personal copy of this repo.
 
 ```bash
 git clone https://github.com/<your-username>/EdgeCareer.git
-cd EdgeCareer
+cd MENTORx
 ```
 
 ### 3️⃣ Create a New Branch
@@ -127,7 +127,7 @@ Need help? Open an issue with the label `help wanted` or `question`.
 
 ## 🔍 Reviewing PRs
 
-Help improve EdgeCareer by reviewing contributions:
+Help improve MENTORx by reviewing contributions:
 
 * ✅ Check if it runs/works as expected
 * 🧠 Look for clear, maintainable code
@@ -169,14 +169,14 @@ Before submitting your pull request:
 
 ## 🙏 A Note from the Maintainer
 
-Thanks for contributing to **EdgeCareer**! Your ideas, energy, and code help us grow faster and stronger. Let’s work together to make this an inclusive, efficient, and impactful platform.
+Thanks for contributing to **MENTORx**! Your ideas, energy, and code help us grow faster and stronger. Let's work together to make this an inclusive, efficient, and impactful platform.
 
 Feel free to open a discussion or issue if you have questions or proposals.
 
 ---
 
 <div align="center">
-  <em><b>Your journey starts here — thank you for being a part of EdgeCareer!</b></em>
+  <em><b>Your journey starts here — thank you for being a part of MENTORx!</b></em>
 </div>
 
 ---

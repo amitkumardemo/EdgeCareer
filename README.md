@@ -1,4 +1,4 @@
-# 🚀 EdgeCareer – AI-Powered Career Coach  
+# 🚀 MENTORx – AI-Powered Career Coach  
 
 ![GSSoC Logo](/gssoc%20logo.png)
 
@@ -7,7 +7,7 @@
 > **Full Stack AI Career Coach built with React 19 + Next.js 15, Tailwind CSS, NeonDB, Prisma, Clerk Authentication, Inngest, Gemini API, and Shadcn UI.**  
 > A **cutting-edge AI-driven career platform** that provides **personalized job recommendations, AI resume reviews, and real-time career insights** to help users land their dream job.  
 
-![EdgeCareer Banner](https://github.com/amitkumardemo/EdgeCareer/blob/main/EdgeCareers.png)
+![MENTORx Banner](https://github.com/amitkumardemo/EdgeCareer/blob/main/EdgeCareers.png)
 
 
 **⚠️ Important for SSoC Contributors (SSoC S4)**
@@ -86,7 +86,7 @@ GEMINI_API_KEY=
 
 ## 🧩 Getting Started – Step-by-Step Setup
 
-Follow these simple steps to set up **EdgeCareer** locally and start contributing:
+Follow these simple steps to set up **MENTORx** locally and start contributing:
 
 ---
 
@@ -105,7 +105,7 @@ Open your terminal and run:
 
 ```
 git clone https://github.com/your-username/EdgeCareer.git
-cd EdgeCareer
+cd MENTORx
 ```
 ---
 
